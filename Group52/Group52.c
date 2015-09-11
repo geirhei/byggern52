@@ -19,18 +19,28 @@
 
 int main(void)
 {
-	DDRA = 0x02;
-	PORTA = (1 << PA1);
-	
+	/*Exercise 1*/
 	fdevopen(usart_Transmit, usart_Receive);
-	
 	usart_Init(MYUBBR);
+	
+	/*Exercise 2*/
+	// Set pins to output
+	DDRA = 0xFF;
+	//DDRC = 0xFF;
+	//DDRD = 0xFF;
+	//DDRE = 0xFF;
+	// Set pin values
+	PORTA = 0x01;
+	// Set ALE
+	PORTE = (1 << PE1);
+
 	
 	while(1)
 	{
+		
 		//usart_Transmit(56);
-		printf("test123");
-		_delay_ms(1000);
+		//printf("test123");
+		//_delay_ms(1000);
 	}
 	
 }
