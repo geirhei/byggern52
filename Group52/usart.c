@@ -26,7 +26,6 @@ void usart_Transmit(unsigned char data)
 	while (!( UCSR0A & (1 << UDRE0)))
 		;
 	/* Put data into buffer, sends the data */
-	blink();
 	UDR0 = data;
 }
 
@@ -45,9 +44,3 @@ void usart_Flush(void)
 	while( UCSR0A & (1 << RXC0) ) dummy = UDR0;
 }
 
-/* Makes LED blink when called */
-void blink(){
-	PORTA ^= (1 << PA1);
-	_delay_ms(300);
-	PORTA ^= (1 << PA1);
-}	

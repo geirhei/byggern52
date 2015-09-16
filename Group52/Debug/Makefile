@@ -37,7 +37,7 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../Group52.c \
+../main.c \
 ../usart.c
 
 
@@ -48,19 +48,19 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-Group52.o \
+main.o \
 usart.o
 
 OBJS_AS_ARGS +=  \
-Group52.o \
+main.o \
 usart.o
 
 C_DEPS +=  \
-Group52.d \
+main.d \
 usart.d
 
 C_DEPS_AS_ARGS +=  \
-Group52.d \
+main.d \
 usart.d
 
 OUTPUT_FILE_PATH +=Group52.elf
