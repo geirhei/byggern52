@@ -20,6 +20,7 @@
 
 void blink();
 void SRAM_test(void);
+void SRAM_test2(void);
 
 int main(void)
 {
@@ -28,38 +29,28 @@ int main(void)
 	usart_Init(MYUBBR);
 	
 	/*Exercise 2*/
-	// Set pins to output
-	//DDRA = 0xFF;
-	//DDRC = 0xFF;
-	// Set pin values
-	//PORTA = 0x01;
-	//PORTC = 0x00;
-	//PORTC = (1 << PC3);
-	// Set ALE
-	//PORTE = (1 << PE1);
-	
 	MCUCR |= (1 << SRE);
 	
-	//Tests
 	//DDRA = 0xFF;
-	//DDRB = 0xFF;
-	//DDRC = 0xFF;
+	//DDRC = 0xFF;//(1 << PINC1);
 	
-	SRAM_test();
+	//PORTA = 0xFF;
+	//PORTC = 0xFF;
 	
+	//SRAM_test();
+	
+	/*Exercise 3*/
 	
 	while(1)
 	{
-		//blink();
 	}
 	
 }
 
 /* Makes LED blink when called */
 void blink(){
-	PORTC ^= (1 << PC1);
+	PORTC ^= (1 << PINC1);
 	_delay_ms(300);
-	PORTC ^= (1 << PC1);
 }
 
 
@@ -96,4 +87,10 @@ void SRAM_test(void)
 		}
 	}
 	printf("SRAM test completed with\n%4d errorsin write phase and\n%4d errors in retrieval phase\n\n", write_errors, retrieval_errors);
+}
+
+void SRAM_test2(void)
+{
+	volatile char *ext_ram = (char *) 0x1900; // Start address for the SRAM
+	ext_ram[0] = "foo";
 }
