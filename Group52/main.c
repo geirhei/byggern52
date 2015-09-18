@@ -15,8 +15,8 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
-#include "usart.h"
 #include <stdlib.h>
+#include "usart.h"
 
 void blink();
 void SRAM_test(void);
@@ -41,14 +41,17 @@ int main(void)
 	
 	/*Exercise 3*/
 	
+	
 	while(1)
 	{
+		SRAM_test2();
 	}
 	
 }
 
 /* Makes LED blink when called */
-void blink(){
+void blink()
+{
 	PORTC ^= (1 << PINC1);
 	_delay_ms(300);
 }
@@ -91,6 +94,6 @@ void SRAM_test(void)
 
 void SRAM_test2(void)
 {
-	volatile char *ext_ram = (char *) 0x1900; // Start address for the SRAM
+	volatile char *ext_ram = (char *) 0x1500; // Start address for the SRAM
 	ext_ram[0] = "foo";
 }

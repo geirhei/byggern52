@@ -37,6 +37,7 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../joystick.c \
 ../main.c \
 ../usart.c
 
@@ -48,18 +49,22 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+joystick.o \
 main.o \
 usart.o
 
 OBJS_AS_ARGS +=  \
+joystick.o \
 main.o \
 usart.o
 
 C_DEPS +=  \
+joystick.d \
 main.d \
 usart.d
 
 C_DEPS_AS_ARGS +=  \
+joystick.d \
 main.d \
 usart.d
 
@@ -77,6 +82,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 
