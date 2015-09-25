@@ -9,7 +9,14 @@
 #ifndef JOYSTICK_H_
 #define JOYSTICK_H_
 
+#include <avr/io.h>
 
+typedef struct {
+	int8_t stick_positions[2];
+} position;
+
+
+position joystick_Get_Position(void);
 
 
 

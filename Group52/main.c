@@ -17,6 +17,7 @@
 #include <util/delay.h>
 #include <stdlib.h>
 #include "usart.h"
+#include "joystick.h"
 
 void blink();
 void SRAM_test(void);
@@ -40,11 +41,33 @@ int main(void)
 	//SRAM_test();
 	
 	/*Exercise 3*/
+	/*
+	printf("test");
+	volatile char *adc = (char *) 0x1500;
+	uint8_t retrieved;
+	*/
+	
+	position foo = joystick_Get_Position();
+	int8_t xValue = foo.stick_positions[0];
 	
 	
 	while(1)
 	{
-		SRAM_test2();
+		foo = joystick_Get_Position();
+		_delay_ms(100);
+		xValue = foo.stick_positions[0];
+		_delay_ms(100);
+		//printf("%d\n", xValue);
+		_delay_ms(100);
+		/*
+		adc[0] = 0b00000100;
+		_delay_us(100);
+		printf("%u\n",retrieved);
+		retrieved = adc[0];
+		
+		//_delay_ms(1000);
+		*/
+		
 	}
 	
 }
