@@ -11,12 +11,23 @@
 
 #include <avr/io.h>
 
-typedef struct {
-	int8_t stick_positions[2];
-} position;
+typedef enum {
+	NEUTRAL = 0,
+	LEFT = 1,
+	RIGHT = 2,
+	UP = 3,
+	DOWN = 4
+} DirectionType;
 
+struct positions {
+	int16_t x, y, l, r;
+};
 
-position joystick_Get_Position(void);
+void joystick_Calibrate(void);
+struct positions joystick_Get_Position(void);
+DirectionType joystick_Get_Direction(void);
+struct positions sliders_Get_Positions(void);
+int16_t toPositionPercent(int16_t value);
 
 
 

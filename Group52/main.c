@@ -14,10 +14,12 @@
 #define loop_until_bit_is_clear( reg, bit ) while( test_bit( reg, bit ) )
 
 #include <avr/io.h>
+#include <stdio.h>
 #include <util/delay.h>
 #include <stdlib.h>
 #include "usart.h"
 #include "joystick.h"
+#include "adc.h"
 
 void blink();
 void SRAM_test(void);
@@ -25,47 +27,35 @@ void SRAM_test2(void);
 
 int main(void)
 {
+
 	/*Exercise 1*/
 	fdevopen(usart_Transmit, usart_Receive);
 	usart_Init(MYUBBR);
-	
+
 	/*Exercise 2*/
+	// Needs to be set when using external memory
 	MCUCR |= (1 << SRE);
-	
-	//DDRA = 0xFF;
-	//DDRC = 0xFF;//(1 << PINC1);
-	
-	//PORTA = 0xFF;
-	//PORTC = 0xFF;
 	
 	//SRAM_test();
 	
 	/*Exercise 3*/
-	/*
-	printf("test");
-	volatile char *adc = (char *) 0x1500;
-	uint8_t retrieved;
-	*/
 	
-	position foo = joystick_Get_Position();
-	int8_t xValue = foo.stick_positions[0];
-	
+	struct positions foo;
 	
 	while(1)
 	{
-		foo = joystick_Get_Position();
-		_delay_ms(100);
-		xValue = foo.stick_positions[0];
-		_delay_ms(100);
-		//printf("%d\n", xValue);
-		_delay_ms(100);
-		/*
-		adc[0] = 0b00000100;
-		_delay_us(100);
-		printf("%u\n",retrieved);
-		retrieved = adc[0];
+		foo = sliders_Get_Positions();
+		//printf("%d\n", foo.r);
 		
-		//_delay_ms(1000);
+		/*
+		int8_t dir = joystick_Get_Direction();
+		printf("%d\n", dir);
+		*/
+		
+		/*
+		foo = joystick_Get_Position();
+		printf("%i\n", foo.x);
+		printf("%i\n", foo.y);
 		*/
 		
 	}
@@ -118,5 +108,5 @@ void SRAM_test(void)
 void SRAM_test2(void)
 {
 	volatile char *ext_ram = (char *) 0x1500; // Start address for the SRAM
-	ext_ram[0] = "foo";
+	ext_ram[0] = 'f';
 }

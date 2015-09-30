@@ -5,44 +5,84 @@
  *  Author: chengbid
  */ 
 
+#define F_CPU 4915200
 #include "joystick.h"
+#include "adc.h"
 #include <avr/io.h>
 #include <util/delay.h>
+#include <stdio.h>
+#include "math.h"
 
-position joystick_Get_Position(void)
+void joystick_Calibrate(void)
 {
-	volatile char *adc = (char *) 0x1500;
-	/* Select CH1 */
-	adc[0] = 0b00000100;
-	_delay_us(70);
-	uint8_t xValue = adc[0];
 	
-	/* Select CH2 */
-	adc[0] = 0b00000101;
-	_delay_us(70);
-	uint8_t yValue = adc[0];
+}
+
+struct positions joystick_Get_Position(void)
+{
+	int16_t yValue = (int16_t) adc_Read(JOYAXIS1);
+	int16_t xValue = (int16_t) adc_Read(JOYAXIS2);
 	
-	int8_t xPosition;
-	int8_t yPosition;
-	int8_t foo;
+	int16_t xPosition = toPositionPercent(xValue);
+	int16_t yPosition = toPositionPercent(yValue);
+	//printf("%i\n", xPosition);
+	//printf("%i\n", yPosition);
 	
-	if (xValue < 128) {
-		foo = 128 - xValue;
-		printf("%i\n", xValue);
-		xPosition = (128 - xValue) / 128 * 100;
+	struct positions pos;
+	pos.x = xPosition;
+	pos.y = yPosition;
+	
+	return pos;
+}
+
+
+DirectionType joystick_Get_Direction(void)
+{
+	struct positions pos = joystick_Get_Position();
+	int8_t THRESHOLD = 25;
+	
+	if (pos.y < THRESHOLD && pos.y > -THRESHOLD) {
 		
-	} else if (xValue >= 128) {
-		xPosition = (xValue - 128) / 128 * 100;
+		if (pos.x < -THRESHOLD) {
+			return LEFT;
+		} else if (pos.x > THRESHOLD) {
+			return RIGHT;
+		}
+		
+	} else if (pos.x < THRESHOLD && pos.x > -THRESHOLD) {
+		
+		if (pos.y < -THRESHOLD) {
+			return DOWN;
+		} else if (pos.y > THRESHOLD) {
+			return UP;
+		}
+		
 	}
+	return NEUTRAL;
+}
+
+int16_t toPositionPercent(int16_t value)
+{
+	value -= 127;
+	int16_t percentValue = round((float)value / 127 * 100);
+	return percentValue;
+}
+
+struct positions sliders_Get_Positions(void)
+{
+	int16_t lValue = adc_Read(LSLIDER);
+	int16_t rValue = adc_Read(RSLIDER);
+	_delay_ms(50);
 	
-	if (yValue < 128) {
-		yPosition = (128 - yValue) / 128 * 100;
-	} else if (yValue >= 128) {
-		yPosition = (yValue - 128) / 128 * 100;
-	}
+	printf("%i\n", lValue);
+	//printf("%i\n", rValue);
 	
-	position pos;
-	pos.stick_positions[0] = xPosition;
-	pos.stick_positions[1] = yPosition;
+	int16_t lPosition = toPositionPercent(lValue);
+	int16_t rPosition = toPositionPercent(rValue);
+	
+	struct positions pos;
+	pos.l = lPosition;
+	pos.r = rPosition;
+	
 	return pos;
 }

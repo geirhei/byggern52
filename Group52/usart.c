@@ -5,6 +5,7 @@
  *  Author: geirhei
  */ 
 
+#define F_CPU 4915200
 #include "usart.h"
 #include <util/delay.h>
 #include <avr/io.h>
@@ -40,7 +41,7 @@ unsigned char usart_Receive(void)
 
 void usart_Flush(void)
 {
-	unsigned char dummy;
+	volatile unsigned char dummy;
 	while( UCSR0A & (1 << RXC0) ) dummy = UDR0;
 }
 
