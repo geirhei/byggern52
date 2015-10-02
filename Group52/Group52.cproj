@@ -111,8 +111,14 @@
   <ItemGroup>
     <Compile Include="adc.c">
       <SubType>compile</SubType>
-    </Compile> 
+    </Compile>
     <Compile Include="adc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="font.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="font.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="joystick.c">
@@ -122,6 +128,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="oled.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="oled.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="usart.c">

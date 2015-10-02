@@ -10,7 +10,7 @@
 #include <util/delay.h>
 #include "adc.h"
 
-uint8_t adc_Read(DeviceType device){
+uint8_t adc_read(DeviceType device){
 	volatile char *adc = (char *) 0x1400;
 	switch (device) {
 		case JOYAXIS1:

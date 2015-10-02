@@ -17,7 +17,7 @@ typedef enum {
 	RSLIDER = 4
 } DeviceType;
 	
-uint8_t adc_Read(DeviceType device);
+uint8_t adc_read(DeviceType device);
 
 
 #endif /* ADC_H_ */

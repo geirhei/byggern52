@@ -13,15 +13,15 @@
 #include <stdio.h>
 #include "math.h"
 
-void joystick_Calibrate(void)
+void joystick_calibrate(void)
 {
 	
 }
 
-struct positions joystick_Get_Position(void)
+struct positions joystick_get_position(void)
 {
-	int16_t yValue = (int16_t) adc_Read(JOYAXIS1);
-	int16_t xValue = (int16_t) adc_Read(JOYAXIS2);
+	int16_t yValue = (int16_t) adc_read(JOYAXIS1);
+	int16_t xValue = (int16_t) adc_read(JOYAXIS2);
 	
 	int16_t xPosition = toPositionPercent(xValue);
 	int16_t yPosition = toPositionPercent(yValue);
@@ -36,9 +36,9 @@ struct positions joystick_Get_Position(void)
 }
 
 
-DirectionType joystick_Get_Direction(void)
+DirectionType joystick_get_direction(void)
 {
-	struct positions pos = joystick_Get_Position();
+	struct positions pos = joystick_get_position();
 	int8_t THRESHOLD = 25;
 	
 	if (pos.y < THRESHOLD && pos.y > -THRESHOLD) {
@@ -68,10 +68,10 @@ int16_t toPositionPercent(int16_t value)
 	return percentValue;
 }
 
-struct positions sliders_Get_Positions(void)
+struct positions sliders_get_positions(void)
 {
-	int16_t lValue = adc_Read(LSLIDER);
-	int16_t rValue = adc_Read(RSLIDER);
+	int16_t lValue = adc_read(LSLIDER);
+	int16_t rValue = adc_read(RSLIDER);
 	_delay_ms(50);
 	
 	printf("%i\n", lValue);

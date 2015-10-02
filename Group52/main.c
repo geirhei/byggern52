@@ -17,47 +17,39 @@
 #include <stdio.h>
 #include <util/delay.h>
 #include <stdlib.h>
+
 #include "usart.h"
 #include "joystick.h"
 #include "adc.h"
+#include "oled.h"
 
 void blink();
 void SRAM_test(void);
 void SRAM_test2(void);
 
+
 int main(void)
 {
 
-	/*Exercise 1*/
 	fdevopen(usart_Transmit, usart_Receive);
 	usart_Init(MYUBBR);
 
-	/*Exercise 2*/
-	// Needs to be set when using external memory
+	/* Needs to be set when using external memory */
 	MCUCR |= (1 << SRE);
 	
-	//SRAM_test();
+	//volatile char *oled = (char *) 0x1200;
+	oled_init();
 	
-	/*Exercise 3*/
-	
-	struct positions foo;
+	//int8_t res = oled_Read_Status();
+	/*
+	for (int i = 0; i < 128; i++) {
+		write_d(0xFF);
+		_delay_ms(50);
+	}
+	*/
 	
 	while(1)
-	{
-		foo = sliders_Get_Positions();
-		//printf("%d\n", foo.r);
-		
-		/*
-		int8_t dir = joystick_Get_Direction();
-		printf("%d\n", dir);
-		*/
-		
-		/*
-		foo = joystick_Get_Position();
-		printf("%i\n", foo.x);
-		printf("%i\n", foo.y);
-		*/
-		
+	{	
 	}
 	
 }
@@ -110,3 +102,4 @@ void SRAM_test2(void)
 	volatile char *ext_ram = (char *) 0x1500; // Start address for the SRAM
 	ext_ram[0] = 'f';
 }
+

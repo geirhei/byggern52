@@ -38,8 +38,10 @@ SUBDIRS :=
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../adc.c \
+../font.c \
 ../joystick.c \
 ../main.c \
+../oled.c \
 ../usart.c
 
 
@@ -51,26 +53,34 @@ ASM_SRCS +=
 
 OBJS +=  \
 adc.o \
+font.o \
 joystick.o \
 main.o \
+oled.o \
 usart.o
 
 OBJS_AS_ARGS +=  \
 adc.o \
+font.o \
 joystick.o \
 main.o \
+oled.o \
 usart.o
 
 C_DEPS +=  \
 adc.d \
+font.d \
 joystick.d \
 main.d \
+oled.d \
 usart.d
 
 C_DEPS_AS_ARGS +=  \
 adc.d \
+font.d \
 joystick.d \
 main.d \
+oled.d \
 usart.d
 
 OUTPUT_FILE_PATH +=Group52.elf
@@ -87,6 +97,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 

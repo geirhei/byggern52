@@ -23,10 +23,10 @@ struct positions {
 	int16_t x, y, l, r;
 };
 
-void joystick_Calibrate(void);
-struct positions joystick_Get_Position(void);
-DirectionType joystick_Get_Direction(void);
-struct positions sliders_Get_Positions(void);
+void joystick_calibrate(void);
+struct positions joystick_get_position(void);
+DirectionType joystick_get_direction(void);
+struct positions sliders_get_positions(void);
 int16_t toPositionPercent(int16_t value);
 
 
