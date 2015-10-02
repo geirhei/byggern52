@@ -37,19 +37,27 @@ int main(void)
 	/* Needs to be set when using external memory */
 	MCUCR |= (1 << SRE);
 	
-	//volatile char *oled = (char *) 0x1200;
-	oled_init();
+	OLED_init();
 	
-	//int8_t res = oled_Read_Status();
-	/*
-	for (int i = 0; i < 128; i++) {
-		write_d(0xFF);
-		_delay_ms(50);
-	}
-	*/
+	//int8_t res = OLED_read_status();
 	
+	OLED_home();
+	OLED_write_d('A');
+	OLED_write_d('A');
+	OLED_write_d('A');
+
+	//OLED_goto_line(7);
+	OLED_clear_line(0);
+	OLED_pos(4, 50);
+	OLED_write_d('A');
+	OLED_write_d('A');
+	OLED_write_d('A');
+
+	OLED_reset();
+
 	while(1)
-	{	
+	{
+		
 	}
 	
 }
