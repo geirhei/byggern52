@@ -13,20 +13,18 @@
 #include <stdio.h>
 #include "math.h"
 
-void joystick_calibrate(void)
+void JOYSTICK_calibrate(void)
 {
 	
 }
 
-struct positions joystick_get_position(void)
+struct positions JOYSTICK_get_position(void)
 {
 	int16_t yValue = (int16_t) adc_read(JOYAXIS1);
 	int16_t xValue = (int16_t) adc_read(JOYAXIS2);
 	
 	int16_t xPosition = toPositionPercent(xValue);
 	int16_t yPosition = toPositionPercent(yValue);
-	//printf("%i\n", xPosition);
-	//printf("%i\n", yPosition);
 	
 	struct positions pos;
 	pos.x = xPosition;
@@ -36,9 +34,9 @@ struct positions joystick_get_position(void)
 }
 
 
-DirectionType joystick_get_direction(void)
+DirectionType JOYSTICK_get_direction(void)
 {
-	struct positions pos = joystick_get_position();
+	struct positions pos = JOYSTICK_get_position();
 	int8_t THRESHOLD = 25;
 	
 	if (pos.y < THRESHOLD && pos.y > -THRESHOLD) {
@@ -68,7 +66,7 @@ int16_t toPositionPercent(int16_t value)
 	return percentValue;
 }
 
-struct positions sliders_get_positions(void)
+struct positions SLIDERS_get_positions(void)
 {
 	int16_t lValue = adc_read(LSLIDER);
 	int16_t rValue = adc_read(RSLIDER);
@@ -85,4 +83,9 @@ struct positions sliders_get_positions(void)
 	pos.r = rPosition;
 	
 	return pos;
+}
+
+uint8_t JOYSTICK_read_button(void)
+{
+	
 }

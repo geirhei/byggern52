@@ -10,7 +10,7 @@
 #include <util/delay.h>
 #include <avr/io.h>
 
-void usart_Init(unsigned int ubrr)
+void USART_init(unsigned int ubrr)
 {
 	/* Set baud rate*/
 	UBRR0H = (unsigned char)(ubrr >> 8 );
@@ -21,7 +21,7 @@ void usart_Init(unsigned int ubrr)
 	UCSR0C = (1 << URSEL0)|(1 << USBS0)|(3 << UCSZ10);
 }
 
-void usart_Transmit(unsigned char data)
+void USART_transmit(unsigned char data)
 {
 	/* Wait for empty transmit buffer */
 	while (!( UCSR0A & (1 << UDRE0)))
@@ -30,7 +30,7 @@ void usart_Transmit(unsigned char data)
 	UDR0 = data;
 }
 
-unsigned char usart_Receive(void)
+unsigned char USART_receive(void)
 {
 	/* Wait for data to be received */
 	while ( !(UCSR0A & ( 1 << RXC0)) )
@@ -39,7 +39,7 @@ unsigned char usart_Receive(void)
 	return UDR0;
 }
 
-void usart_Flush(void)
+void USART_flush(void)
 {
 	volatile unsigned char dummy;
 	while( UCSR0A & (1 << RXC0) ) dummy = UDR0;

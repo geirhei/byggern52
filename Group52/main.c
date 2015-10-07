@@ -31,29 +31,21 @@ void SRAM_test2(void);
 int main(void)
 {
 
-	fdevopen(usart_Transmit, usart_Receive);
-	usart_Init(MYUBBR);
+	fdevopen(USART_transmit, USART_receive);
+	USART_init(MYUBBR);
 
 	/* Needs to be set when using external memory */
 	MCUCR |= (1 << SRE);
 	
 	OLED_init();
-	
-	//int8_t res = OLED_read_status();
-	
-	OLED_home();
-	OLED_write_d('A');
-	OLED_write_d('A');
-	OLED_write_d('A');
-
-	//OLED_goto_line(7);
-	OLED_clear_line(0);
-	OLED_pos(4, 50);
-	OLED_write_d('A');
-	OLED_write_d('A');
-	OLED_write_d('A');
-
 	OLED_reset();
+	
+	OLED_pos(2,20);
+	//char str[] = "Test";
+	//OLED_print_string(str);
+	
+	menuNode *game_menu = OLED_generate_menu();
+	OLED_print_menu(game_menu);
 
 	while(1)
 	{

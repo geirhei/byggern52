@@ -9,6 +9,7 @@
 #include "font.h"
 #include <util/delay.h>
 #include <avr/pgmspace.h>
+#include <stdlib.h>
 
 	
 void OLED_init(void)
@@ -61,7 +62,9 @@ int8_t OLED_read_status(void)
 	return oled[0];
 }
 
+
 /* Prints a single character to the given display address */
+/*
 void OLED_print(char c)
 {
 	uint8_t c;
@@ -70,6 +73,7 @@ void OLED_print(char c)
 		OLED_write_c(c);
 	}
 }
+*/
 
 void OLED_home(void)
 {
@@ -115,10 +119,86 @@ void OLED_pos(uint8_t row, uint8_t column)
 
 void OLED_reset(void)
 {
-	for (int i = 0; i < 8; i++) {
+	for (uint8_t i = 0; i < 8; i++) {
 		OLED_clear_line(i);
 	}
 	OLED_pos(0,0);
 
 	// Redraw from SRAM?
+}
+
+void OLED_print_string(char* str)
+{
+	uint8_t c;
+	uint8_t font_width = 4; // Use sizeof array here
+	uint8_t i = 0;
+	while (str[i] != '\0') {
+		for (uint8_t j = 0; j < font_width; j++) {
+			c = pgm_read_byte_near(font[str[i]-32] + j);
+			OLED_write_d(c);
+		}
+		i++;
+	}
+}
+
+void OLED_print_arrow(uint8_t row, uint8_t col)
+{
+	OLED_pos(row, col);
+	OLED_write_d(0b00011000);
+	OLED_write_d(0b00011000);
+	OLED_write_d(0b01111110);
+	OLED_write_d(0b00111100);
+	OLED_write_d(0b00011000);
+}
+
+
+menuNode *OLED_create_node(char* name)
+{
+	menuNode* ret = (menuNode*) malloc(sizeof(menuNode));
+	ret->name = name;
+	ret->parent = NULL;
+	return ret;
+}
+
+// Implement function for freeing memory
+
+menuNode *OLED_generate_menu(void)
+{	
+	menuNode *mainmenu = OLED_create_node("MAIN MENU");
+	menuNode *highscores = OLED_create_node("Highscores");
+	menuNode *playgame = OLED_create_node("Start new game");
+	menuNode *debugging = OLED_create_node("Debugging");
+	menuNode *calibrate = OLED_create_node("Calibrate");
+	menuNode *difficulty = OLED_create_node("Difficulty");
+
+	highscores->parent = mainmenu;
+	playgame->parent = mainmenu;
+	calibrate->parent = mainmenu;
+	difficulty->parent = mainmenu;
+	debugging->parent = mainmenu;
+	
+	mainmenu->children[1] = playgame;
+	mainmenu->children[2] = highscores;
+	mainmenu->children[3] = difficulty;
+	mainmenu->children[4] = calibrate;
+	mainmenu->children[5] = debugging;
+	
+	return mainmenu;
+}
+
+void OLED_print_menu(menuNode *node)
+{
+	OLED_pos(0,50);
+	OLED_print_string(node->name);
+	printf("%s\n", node->name);
+	OLED_pos(1,50);
+	OLED_print_string(node->children[1]->name);
+	OLED_pos(2,50);
+	OLED_print_string(node->children[2]->name);
+	OLED_pos(3,50);
+	OLED_print_string(node->children[3]->name);
+	OLED_pos(4,50);
+	OLED_print_string(node->children[4]->name);
+	OLED_pos(5,50);
+	OLED_print_string(node->children[5]->name);
 }

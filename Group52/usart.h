@@ -13,9 +13,9 @@
 #define MYUBBR F_CPU/16/BAUD-1
 
 
-void usart_Init(unsigned int ubrr);
-void usart_Transmit(unsigned char data);
-unsigned char usart_Receive(void);
-void usart_Flush(void);
+void USART_init(unsigned int ubrr);
+void USART_transmit(unsigned char data);
+unsigned char USART_receive(void);
+void USART_flush(void);
 
 #endif /* USART_H_ */
