@@ -30,28 +30,58 @@ void SRAM_test2(void);
 
 int main(void)
 {
+	/* Needs to be set when using external memory */
+	MCUCR |= (1 << SRE);
 
 	fdevopen(USART_transmit, USART_receive);
 	USART_init(MYUBBR);
-
-	/* Needs to be set when using external memory */
-	MCUCR |= (1 << SRE);
-	
 	OLED_init();
+	JOYSTICK_init();
+	
 	OLED_reset();
-	
 	OLED_pos(2,20);
-	//char str[] = "Test";
-	//OLED_print_string(str);
 	
-	menuNode *game_menu = OLED_generate_menu();
-	OLED_print_menu(game_menu);
-
+	menuNode *menu = OLED_generate_menu();
+	OLED_print_menu(menu);
+	
+	uint8_t currentRow = 1;
+	uint8_t lastRow = 0;
+	DirectionType joydir;
+	uint8_t buttonPressed = 0;
+	
 	while(1)
-	{
+	{	
+		joydir = JOYSTICK_get_direction();
+		//printf("%i\n", joydir);
+		lastRow = currentRow;
+		if (joydir == UP) {
+			if (currentRow == 1) {
+				currentRow = 7;
+			} else {
+				currentRow -= 1;
+			}
+			
+		} else if (joydir == DOWN) {
+			if (currentRow == 7) {
+				currentRow = 1;
+			} else {
+				currentRow += 1;
+			}
+		}
 		
+		OLED_move_arrow(currentRow, 20, lastRow, 20);
+		
+		buttonPressed = JOYSTICK_read_button();
+	
+		if (buttonPressed) {
+			menu = menu->children[currentRow];
+		}
+		printf("%d\n", buttonPressed);
+		
+		_delay_ms(50);
 	}
 	
+	return 0;
 }
 
 /* Makes LED blink when called */

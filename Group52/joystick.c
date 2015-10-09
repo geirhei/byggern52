@@ -13,6 +13,14 @@
 #include <stdio.h>
 #include "math.h"
 
+void JOYSTICK_init(void)
+{
+	/* Set PB2 as input for button*/
+	DDRB &= ~(1 << PB2);
+	PORTB &= (1 << PB2);
+	
+}
+
 void JOYSTICK_calibrate(void)
 {
 	
@@ -56,6 +64,7 @@ DirectionType JOYSTICK_get_direction(void)
 		}
 		
 	}
+	
 	return NEUTRAL;
 }
 
@@ -72,7 +81,7 @@ struct positions SLIDERS_get_positions(void)
 	int16_t rValue = adc_read(RSLIDER);
 	_delay_ms(50);
 	
-	printf("%i\n", lValue);
+	//printf("%i\n", lValue);
 	//printf("%i\n", rValue);
 	
 	int16_t lPosition = toPositionPercent(lValue);
@@ -87,5 +96,5 @@ struct positions SLIDERS_get_positions(void)
 
 uint8_t JOYSTICK_read_button(void)
 {
-	
+	return (PINB & (1 << PB2)) == 0;
 }

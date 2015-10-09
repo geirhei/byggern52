@@ -23,6 +23,7 @@ struct positions {
 	int16_t x, y, l, r;
 };
 
+void JOYSTICK_init(void);
 void JOYSTICK_calibrate(void);
 struct positions JOYSTICK_get_position(void);
 DirectionType JOYSTICK_get_direction(void);

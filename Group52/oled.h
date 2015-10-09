@@ -36,7 +36,8 @@ void OLED_print_string(char* str);
 void OLED_print_arrow(uint8_t row, uint8_t col);
 menuNode *OLED_generate_menu(void);
 void OLED_print_menu(menuNode *node);
-menuNode *OLED_create_node(char* name);
+menuNode *OLED_create_node(char* name, menuNode* parent);
+void OLED_move_arrow(uint8_t newRow, uint8_t newCol, uint8_t currentRow, uint8_t currentCol);
 
 
 

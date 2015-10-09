@@ -151,8 +151,20 @@ void OLED_print_arrow(uint8_t row, uint8_t col)
 	OLED_write_d(0b00011000);
 }
 
+void OLED_move_arrow(uint8_t newRow, uint8_t newCol, uint8_t currentRow, uint8_t currentCol)
+{
+	OLED_pos(currentRow, currentCol);
+	OLED_write_d(0b00000000);
+	OLED_write_d(0b00000000);
+	OLED_write_d(0b00000000);
+	OLED_write_d(0b00000000);
+	OLED_write_d(0b00000000);
+	
+	OLED_print_arrow(newRow, newCol);
+}
 
-menuNode *OLED_create_node(char* name)
+
+menuNode *OLED_create_node(char* name, menuNode* parent)
 {
 	menuNode* ret = (menuNode*) malloc(sizeof(menuNode));
 	ret->name = name;
@@ -164,18 +176,20 @@ menuNode *OLED_create_node(char* name)
 
 menuNode *OLED_generate_menu(void)
 {	
-	menuNode *mainmenu = OLED_create_node("MAIN MENU");
-	menuNode *highscores = OLED_create_node("Highscores");
-	menuNode *playgame = OLED_create_node("Start new game");
-	menuNode *debugging = OLED_create_node("Debugging");
-	menuNode *calibrate = OLED_create_node("Calibrate");
-	menuNode *difficulty = OLED_create_node("Difficulty");
+	menuNode *mainmenu = OLED_create_node("MAIN MENU", NULL);
+	menuNode *highscores = OLED_create_node("Highscores", mainmenu);
+	menuNode *playgame = OLED_create_node("Start new game", mainmenu);
+	menuNode *debugging = OLED_create_node("Debugging", mainmenu);
+	menuNode *calibrate = OLED_create_node("Calibrate", mainmenu);
+	menuNode *difficulty = OLED_create_node("Difficulty", mainmenu);
 
+	/*
 	highscores->parent = mainmenu;
 	playgame->parent = mainmenu;
 	calibrate->parent = mainmenu;
 	difficulty->parent = mainmenu;
 	debugging->parent = mainmenu;
+	*/
 	
 	mainmenu->children[1] = playgame;
 	mainmenu->children[2] = highscores;
@@ -190,7 +204,7 @@ void OLED_print_menu(menuNode *node)
 {
 	OLED_pos(0,50);
 	OLED_print_string(node->name);
-	printf("%s\n", node->name);
+	//printf("%s\n", node->name);
 	OLED_pos(1,50);
 	OLED_print_string(node->children[1]->name);
 	OLED_pos(2,50);
