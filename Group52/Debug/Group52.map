@@ -129,6 +129,26 @@ Discarded input sections
                 0x00000000        0x6 oled.o
  .text.OLED_home
                 0x00000000        0xa oled.o
+ .text          0x00000000        0x0 spi.o
+ .data          0x00000000        0x0 spi.o
+ .bss           0x00000000        0x0 spi.o
+ .text.SPI_master_init
+                0x00000000        0xa spi.o
+ .text.SPI_master_transmit
+                0x00000000        0x8 spi.o
+ .text.SPI_slave_init
+                0x00000000        0xa spi.o
+ .text.SPI_slave_receive
+                0x00000000        0x8 spi.o
+ .debug_info    0x00000000       0xe2 spi.o
+ .debug_abbrev  0x00000000       0x94 spi.o
+ .debug_aranges
+                0x00000000       0x38 spi.o
+ .debug_ranges  0x00000000       0x28 spi.o
+ .debug_line    0x00000000       0xe7 spi.o
+ .debug_str     0x00000000      0x18e spi.o
+ .comment       0x00000000       0x31 spi.o
+ .debug_frame   0x00000000       0x54 spi.o
  .text          0x00000000        0x0 usart.o
  .data          0x00000000        0x0 usart.o
  .bss           0x00000000        0x0 usart.o
@@ -423,6 +443,7 @@ LOAD font.o
 LOAD joystick.o
 LOAD main.o
 LOAD oled.o
+LOAD spi.o
 LOAD usart.o
 START GROUP
 LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libm.a
@@ -967,13 +988,13 @@ END GROUP
  .debug_str     0x0000053b       0x41 usart.o
                                 0x184 (size before relaxing)
 
-.debug_loc      0x00000000      0xe3a
+.debug_loc      0x00000000      0xe46
  *(.debug_loc)
  .debug_loc     0x00000000       0x6c adc.o
  .debug_loc     0x0000006c      0x47a joystick.o
- .debug_loc     0x000004e6      0x2d7 main.o
- .debug_loc     0x000007bd      0x60f oled.o
- .debug_loc     0x00000dcc       0x6e usart.o
+ .debug_loc     0x000004e6      0x2e3 main.o
+ .debug_loc     0x000007c9      0x60f oled.o
+ .debug_loc     0x00000dd8       0x6e usart.o
 
 .debug_macinfo
  *(.debug_macinfo)

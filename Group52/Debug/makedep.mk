@@ -12,5 +12,7 @@ main.c
 
 oled.c
 
+spi.c
+
 usart.c
 

@@ -46,7 +46,7 @@ int main(void)
 	
 	uint8_t currentRow = 1;
 	uint8_t lastRow = 0;
-	DirectionType joydir;
+	DirectionType joydir = NEUTRAL;
 	uint8_t buttonPressed = 0;
 	
 	while(1)

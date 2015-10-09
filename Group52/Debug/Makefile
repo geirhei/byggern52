@@ -42,6 +42,7 @@ C_SRCS +=  \
 ../joystick.c \
 ../main.c \
 ../oled.c \
+../spi.c \
 ../usart.c
 
 
@@ -57,6 +58,7 @@ font.o \
 joystick.o \
 main.o \
 oled.o \
+spi.o \
 usart.o
 
 OBJS_AS_ARGS +=  \
@@ -65,6 +67,7 @@ font.o \
 joystick.o \
 main.o \
 oled.o \
+spi.o \
 usart.o
 
 C_DEPS +=  \
@@ -73,6 +76,7 @@ font.d \
 joystick.d \
 main.d \
 oled.d \
+spi.d \
 usart.d
 
 C_DEPS_AS_ARGS +=  \
@@ -81,6 +85,7 @@ font.d \
 joystick.d \
 main.d \
 oled.d \
+spi.d \
 usart.d
 
 OUTPUT_FILE_PATH +=Group52.elf
@@ -97,6 +102,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 
