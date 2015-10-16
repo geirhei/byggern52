@@ -41,6 +41,7 @@ C_SRCS +=  \
 ../font.c \
 ../joystick.c \
 ../main.c \
+../mcp.c \
 ../oled.c \
 ../spi.c \
 ../usart.c
@@ -57,6 +58,7 @@ adc.o \
 font.o \
 joystick.o \
 main.o \
+mcp.o \
 oled.o \
 spi.o \
 usart.o
@@ -66,6 +68,7 @@ adc.o \
 font.o \
 joystick.o \
 main.o \
+mcp.o \
 oled.o \
 spi.o \
 usart.o
@@ -75,6 +78,7 @@ adc.d \
 font.d \
 joystick.d \
 main.d \
+mcp.d \
 oled.d \
 spi.d \
 usart.d
@@ -84,6 +88,7 @@ adc.d \
 font.d \
 joystick.d \
 main.d \
+mcp.d \
 oled.d \
 spi.d \
 usart.d
@@ -102,6 +107,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

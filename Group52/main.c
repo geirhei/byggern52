@@ -22,6 +22,7 @@
 #include "joystick.h"
 #include "adc.h"
 #include "oled.h"
+#include "spi.h"
 
 void blink();
 void SRAM_test(void);
@@ -37,6 +38,7 @@ int main(void)
 	USART_init(MYUBBR);
 	OLED_init();
 	JOYSTICK_init();
+	SPI_master_init();
 	
 	OLED_reset();
 	OLED_pos(2,20);
@@ -48,6 +50,12 @@ int main(void)
 	uint8_t lastRow = 0;
 	DirectionType joydir = NEUTRAL;
 	uint8_t buttonPressed = 0;
+	
+	SPI_master_transmit(0xFF);
+	SPI_master_transmit(0x00);
+	char received = SPDR;
+	printf("%c\n", received);
+	
 	
 	while(1)
 	{	
@@ -76,9 +84,8 @@ int main(void)
 		if (buttonPressed) {
 			menu = menu->children[currentRow];
 		}
-		printf("%d\n", buttonPressed);
+		//printf("%d\n", buttonPressed);
 		
-		_delay_ms(50);
 	}
 	
 	return 0;
