@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <util/delay.h>
 #include <stdlib.h>
+#include "MCP2515.h"
 
 #include "usart.h"
 #include "joystick.h"
@@ -53,31 +54,9 @@ int main(void)
 	DirectionType joydir = NEUTRAL;
 	uint8_t buttonPressed = 0;
 	
-	MCP_set_mode(LOOPBACK);
-	// Turn mask off for both receive buffers
-	MCP_modify_bit(0x60, 0b01100000, 0x00);
-	MCP_modify_bit(0x70, 0b01100000, 0x00);
-	
-	// Set TXB0CTRL.TXREQ
-	MCP_modify_bit(0x30, 0b00001000, 0b00001000);
-	
-	MCP_write(0b00110001, 'A');
-	MCP_write(0b00110010, 'A');
-	MCP_write(0b00110011, 'A');
-	MCP_write(0b00110100, 'A');
-	MCP_write(0b00110101, 'A');
-	MCP_write(0b00110110, 'A');
-	MCP_write(0b00110111, 'A');
-	MCP_write(0b00111000, 'A');
-	MCP_write(0b00111001, 'A');
-	MCP_write(0b00111010, 'A');
-	MCP_write(0b00111011, 'A');
-	MCP_write(0b00111100, 'A');
-	MCP_write(0b00111101, 'A');
-	
-	MCP_request_to_send();
-	char response = MCP_read(0x0F);
-	printf("CANSTAT: %d\n", response);
+	MCP_write(MCP_CANCTRL, 0b01000001);
+	char response = MCP_read(MCP_READ_STATUS);
+	printf("CANCTRL: %d\n", response);
 	
 	while(1)
 	{	
