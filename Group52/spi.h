@@ -11,6 +11,7 @@
 
 void SPI_master_init(void);
 void SPI_master_transmit(char cData);
+char SPI_master_read(void);
 //void SPI_slave_init(void);
 //char SPI_slave_receive(void);
 

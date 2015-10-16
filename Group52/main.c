@@ -23,6 +23,7 @@
 #include "adc.h"
 #include "oled.h"
 #include "spi.h"
+#include "mcp.h"
 
 void blink();
 void SRAM_test(void);
@@ -39,6 +40,7 @@ int main(void)
 	OLED_init();
 	JOYSTICK_init();
 	SPI_master_init();
+	MCP_init();
 	
 	OLED_reset();
 	OLED_pos(2,20);
@@ -51,16 +53,35 @@ int main(void)
 	DirectionType joydir = NEUTRAL;
 	uint8_t buttonPressed = 0;
 	
-	SPI_master_transmit(0xFF);
-	SPI_master_transmit(0x00);
-	char received = SPDR;
-	printf("%c\n", received);
+	MCP_set_mode(LOOPBACK);
+	// Turn mask off for both receive buffers
+	MCP_modify_bit(0x60, 0b01100000, 0x00);
+	MCP_modify_bit(0x70, 0b01100000, 0x00);
 	
+	// Set TXB0CTRL.TXREQ
+	MCP_modify_bit(0x30, 0b00001000, 0b00001000);
+	
+	MCP_write(0b00110001, 'A');
+	MCP_write(0b00110010, 'A');
+	MCP_write(0b00110011, 'A');
+	MCP_write(0b00110100, 'A');
+	MCP_write(0b00110101, 'A');
+	MCP_write(0b00110110, 'A');
+	MCP_write(0b00110111, 'A');
+	MCP_write(0b00111000, 'A');
+	MCP_write(0b00111001, 'A');
+	MCP_write(0b00111010, 'A');
+	MCP_write(0b00111011, 'A');
+	MCP_write(0b00111100, 'A');
+	MCP_write(0b00111101, 'A');
+	
+	MCP_request_to_send();
+	char response = MCP_read(0x0F);
+	printf("CANSTAT: %d\n", response);
 	
 	while(1)
 	{	
 		joydir = JOYSTICK_get_direction();
-		//printf("%i\n", joydir);
 		lastRow = currentRow;
 		if (joydir == UP) {
 			if (currentRow == 1) {
@@ -78,13 +99,11 @@ int main(void)
 		}
 		
 		OLED_move_arrow(currentRow, 20, lastRow, 20);
-		
 		buttonPressed = JOYSTICK_read_button();
 	
 		if (buttonPressed) {
 			menu = menu->children[currentRow];
 		}
-		//printf("%d\n", buttonPressed);
 		
 	}
 	

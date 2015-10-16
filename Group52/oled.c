@@ -7,6 +7,7 @@
 
 #include "oled.h"
 #include "font.h"
+#include "joystick.h"
 #include <util/delay.h>
 #include <avr/pgmspace.h>
 #include <stdlib.h>
@@ -41,8 +42,42 @@ void OLED_init(void)
 	{
 		OLED_write_d(0xFF);
 	}
+	
+	OLED_reset();
 }
 
+
+void OLED_update(menuNode *menu)
+{
+	uint8_t currentRow = 1;
+	uint8_t lastRow = 0;
+	DirectionType joydir = NEUTRAL;
+	uint8_t buttonPressed = 0;
+	
+	joydir = JOYSTICK_get_direction();
+	lastRow = currentRow;
+	if (joydir == UP) {
+		if (currentRow == 1) {
+			currentRow = 7;
+			} else {
+			currentRow -= 1;
+		}
+		
+		} else if (joydir == DOWN) {
+		if (currentRow == 7) {
+			currentRow = 1;
+			} else {
+			currentRow += 1;
+		}
+	}
+	
+	OLED_move_arrow(currentRow, 20, lastRow, 20);
+	buttonPressed = JOYSTICK_read_button();
+	
+	if (buttonPressed) {
+		menu = menu->children[currentRow];
+	}
+}
 
 void OLED_write_c(char chr)
 {

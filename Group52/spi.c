@@ -31,6 +31,12 @@ void SPI_master_transmit(char cData)
 	// Interrupt here?
 }
 
+char SPI_master_read(void)
+{
+	char data = SPDR;
+	return data;
+}
+
 //
 //void SPI_slave_init(void)
 //{
