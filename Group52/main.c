@@ -58,10 +58,12 @@ int main(void)
 	/* MCP TEST */
 	
 	//MCP_write(MCP_CANCTRL, 0b01000001);
-	char status = MCP_read(MCP_RXB0CTRL);
-	printf("RXB0CTRL: %d\n", status);
+	char status = MCP_read(MCP_CANSTAT);
+	printf("RXB0CTRL: %02x\n", status);
 	
-	MCP_load_tx_buffer(MCP_LOAD_TX0, 0xFF);
+	//MCP_load_tx_buffer(MCP_LOAD_TX0, 0xFF);
+	MCP_write(MCP_TXB0CTRL + 5, 1);
+	MCP_write(MCP_TXB0CTRL + 6, 0xFF);
 	MCP_request_to_send(MCP_RTS_TX0);
 	char data = MCP_read_rx_buffer(MCP_READ_RX0);
 	printf("RX0: %d\n", data);
