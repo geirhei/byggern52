@@ -16,7 +16,10 @@
 	char MCP_read_status(void);
 	void MCP_set_mode(uint8_t mode);
 	void MCP_modify_bit(char addr, char mask, char data);
-	void MCP_request_to_send(void);
+	void MCP_request_to_send(char buffer);
+	char MCP_read_rx_buffer(char buffer);
+	void MCP_load_tx_buffer(char buffer, char data);
+	char MCP_rx_status(void);
 	
 
 #endif /* MCP_H_ */

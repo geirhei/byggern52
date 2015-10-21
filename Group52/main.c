@@ -17,14 +17,15 @@
 #include <stdio.h>
 #include <util/delay.h>
 #include <stdlib.h>
-#include "MCP2515.h"
 
 #include "usart.h"
 #include "joystick.h"
 #include "adc.h"
 #include "oled.h"
 #include "spi.h"
+#include "MCP2515.h"
 #include "mcp.h"
+#include "can.h"
 
 void blink();
 void SRAM_test(void);
@@ -54,9 +55,18 @@ int main(void)
 	DirectionType joydir = NEUTRAL;
 	uint8_t buttonPressed = 0;
 	
-	MCP_write(MCP_CANCTRL, 0b01000001);
-	char response = MCP_read(MCP_READ_STATUS);
-	printf("CANCTRL: %d\n", response);
+	/* MCP TEST */
+	
+	//MCP_write(MCP_CANCTRL, 0b01000001);
+	char status = MCP_read(MCP_RXB0CTRL);
+	printf("RXB0CTRL: %d\n", status);
+	
+	MCP_load_tx_buffer(MCP_LOAD_TX0, 0xFF);
+	MCP_request_to_send(MCP_RTS_TX0);
+	char data = MCP_read_rx_buffer(MCP_READ_RX0);
+	printf("RX0: %d\n", data);
+	
+	/* MCP TEST END */
 	
 	while(1)
 	{	
@@ -95,7 +105,6 @@ void blink()
 	PORTC ^= (1 << PINC1);
 	_delay_ms(300);
 }
-
 
 void SRAM_test(void)
 {

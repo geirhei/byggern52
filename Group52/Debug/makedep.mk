@@ -4,6 +4,8 @@
 
 adc.c
 
+can.c
+
 font.c
 
 joystick.c
