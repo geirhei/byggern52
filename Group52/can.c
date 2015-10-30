@@ -34,11 +34,11 @@ void CAN_message_send(can_message_t* msg)
 	//printf("msgid: %02x\n", value);
 	
 	/* Set data length */
-	MCP_write(MCP_TXB0CTRL + 6, msg->length);
+	MCP_write(MCP_TXB0CTRL + 5, msg->length & 0x0F);
 	
 	/* Load message data */
 	for (uint8_t i = 0; i < msg->length; i++) {
-		MCP_write(MCP_TXB0CTRL + 7 + i, msg->data[i]);
+		MCP_write(MCP_TXB0CTRL + 6 + i, msg->data[i]);
 	}
 	
 	/* Request to send contents of TXB0 */

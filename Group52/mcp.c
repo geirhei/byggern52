@@ -13,9 +13,10 @@
 void MCP_init(void)
 {
 	MCP_reset();
-	MCP_set_mode(MODE_LOOPBACK); // Sets loopback operation mode for testing
+	
 	MCP_modify_bit(MCP_RXB0CTRL, 0b01100000, 0xFF); // Turns masks/filters off for RX0
 	MCP_modify_bit(MCP_RXB1CTRL, 0b01100000, 0xFF); // Turns masks/filters off for RX1
+	MCP_set_mode(MODE_LOOPBACK); // Sets loopback operation mode for testing
 }
 
 void MCP_reset(void)

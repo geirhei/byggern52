@@ -61,8 +61,8 @@ int main(void)
 	printf("CANCTRL: %02x\n", status);
 	
 	can_message_t can_message;
-	can_message.data[0] = 0;
-	can_message.data[1] = 2;
+	can_message.data[0] = 0xff;
+	can_message.data[1] = 0xcc;
 	can_message.length = 2;
 	can_message.id = 2;
 	CAN_message_send(&can_message);
@@ -79,10 +79,9 @@ int main(void)
 	printf("\n");
 	
 	/* Clear CANINTF.RX0IF */
-	uint8_t reg = MCP_read(MCP_EFLG);
-	reg &= ~(1 << 6);
-	MCP_write(MCP_EFLG, reg);
-	
+	MCP_modify_bit(MCP_CANINTF, 0x01, 0x00);
+	uint8_t canintf = MCP_read(MCP_CANINTF);
+	printf("CANINTF: %02x\n", canintf);
 	
 	/*
 	char data = MCP_read_rx_buffer(MCP_READ_RX0);
