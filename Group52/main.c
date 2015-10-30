@@ -61,8 +61,8 @@ int main(void)
 	printf("CANCTRL: %02x\n", status);
 	
 	can_message_t can_message;
-	can_message.data[0] = 0xff;
-	can_message.data[1] = 0xcc;
+	can_message.data[0] = 0x01;
+	can_message.data[1] = 0x02;
 	can_message.length = 2;
 	can_message.id = 2;
 	CAN_message_send(&can_message);
@@ -70,28 +70,29 @@ int main(void)
 	uint8_t RXB0CTRL = MCP_read(MCP_RXB0CTRL);
 	printf("RXB0CTRL: %02x\n", RXB0CTRL);
 	
-	uint8_t received;
+	can_message_t received_message = CAN_message_receive();
+	//uint8_t received_data[8];
+	//memcpy(received_data, received_message.data, 8);
+	
+	printf("ID: %02x\n", received_message.id);
+	printf("length: %02x\n", received_message.length);
 	for (uint8_t i = 0; i < 8; i++) {
-		received = MCP_read(MCP_RXB0CTRL + 6 + i);
-		printf("Received: %02x\n", received);
+		printf("Received: %02x\n", received_message.data[i]);
 	}
 	
+	
 	printf("\n");
-	
-	/* Clear CANINTF.RX0IF */
-	MCP_modify_bit(MCP_CANINTF, 0x01, 0x00);
-	uint8_t canintf = MCP_read(MCP_CANINTF);
-	printf("CANINTF: %02x\n", canintf);
-	
-	/*
-	char data = MCP_read_rx_buffer(MCP_READ_RX0);
-	printf("RX0: %02x\n", data);
-	*/
+
 	
 	/* MCP TEST END */
 	
 	while(1)
 	{	
+		
+		
+		
+		
+		/* Create seperate function for this */
 		joydir = JOYSTICK_get_direction();
 		lastRow = currentRow;
 		if (joydir == UP) {
