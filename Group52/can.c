@@ -41,9 +41,6 @@ void CAN_message_send(can_message_t* msg)
 	
 	/* Request to send contents of TXB0 */
 	MCP_request_to_send(MCP_RTS_TX0);
-	
-	/* Clear CANINTF.TX0IF */
-	MCP_modify_bit(MCP_CANINTF, 0x04, 0x00);
 }
 
 can_message_t CAN_message_receive(void)
@@ -58,7 +55,7 @@ can_message_t CAN_message_receive(void)
 	printf("Buffer: %02x\n", buffer);
 	message.id = (buffer >> 5);
 	buffer = MCP_read(MCP_RXB0CTRL + 5);
-	message.length = (buffer & 0x07);
+	message.length = (buffer & 0x0F);
 	for (uint8_t i = 0; i < message.length; i++) {
 		message.data[i] = MCP_read(MCP_RXB0CTRL + 6 + i);
 	}
