@@ -42,7 +42,7 @@ int main(void)
 	OLED_init();
 	JOYSTICK_init();
 	SPI_master_init();
-	MCP_init();
+	CAN_init();
 	
 	OLED_reset();
 	OLED_pos(2,20);
@@ -57,16 +57,37 @@ int main(void)
 	
 	/* MCP TEST */
 	
-	//MCP_write(MCP_CANCTRL, 0b01000001);
-	char status = MCP_read(MCP_CANSTAT);
-	printf("RXB0CTRL: %02x\n", status);
+	char status = MCP_read(MCP_CANCTRL);
+	printf("CANCTRL: %02x\n", status);
 	
-	//MCP_load_tx_buffer(MCP_LOAD_TX0, 0xFF);
-	MCP_write(MCP_TXB0CTRL + 5, 1);
-	MCP_write(MCP_TXB0CTRL + 6, 0xFF);
-	MCP_request_to_send(MCP_RTS_TX0);
+	can_message_t can_message;
+	can_message.data[0] = 0;
+	can_message.data[1] = 2;
+	can_message.length = 2;
+	can_message.id = 2;
+	CAN_message_send(&can_message);
+	
+	uint8_t RXB0CTRL = MCP_read(MCP_RXB0CTRL);
+	printf("RXB0CTRL: %02x\n", RXB0CTRL);
+	
+	uint8_t received;
+	for (uint8_t i = 0; i < 8; i++) {
+		received = MCP_read(MCP_RXB0CTRL + 6 + i);
+		printf("Received: %02x\n", received);
+	}
+	
+	printf("\n");
+	
+	/* Clear CANINTF.RX0IF */
+	uint8_t reg = MCP_read(MCP_EFLG);
+	reg &= ~(1 << 6);
+	MCP_write(MCP_EFLG, reg);
+	
+	
+	/*
 	char data = MCP_read_rx_buffer(MCP_READ_RX0);
-	printf("RX0: %d\n", data);
+	printf("RX0: %02x\n", data);
+	*/
 	
 	/* MCP TEST END */
 	

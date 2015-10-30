@@ -25,7 +25,8 @@ void MCP_reset(void)
 	PORTB |= (1 << PB4);
 }
 
-char MCP_read(char addr)
+/* Returns the content of a register */
+uint8_t MCP_read(uint8_t addr)
 {
 	PORTB &= ~(1 << PB4);
 	SPI_master_transmit(MCP_READ);
@@ -36,7 +37,7 @@ char MCP_read(char addr)
 	return data;
 }
 
-void MCP_write(char addr, char data)
+void MCP_write(uint8_t addr, uint8_t data)
 {
 	PORTB &= ~(1 << PB4);
 	SPI_master_transmit(MCP_WRITE);
@@ -46,7 +47,7 @@ void MCP_write(char addr, char data)
 }
 
 /* Returns the content of the specified buffer. Reduces overhead of MCP_read */
-char MCP_read_rx_buffer(char buffer)
+uint8_t MCP_read_rx_buffer(uint8_t buffer)
 {
 	PORTB &= ~(1 << PB4);
 	SPI_master_transmit(buffer);
@@ -57,7 +58,7 @@ char MCP_read_rx_buffer(char buffer)
 }
 
 /* Loads the specified transmit buffer with data. Reduces overhead of MCP_write */
-void MCP_load_tx_buffer(char buffer, char data)
+void MCP_load_tx_buffer(uint8_t buffer, uint8_t data)
 {
 	PORTB &= ~(1 << PB4);
 	SPI_master_transmit(buffer);
@@ -66,7 +67,7 @@ void MCP_load_tx_buffer(char buffer, char data)
 }
 
 /* Instructs controller to begin message transmission for the selected buffers */
-void MCP_request_to_send(char buffer)
+void MCP_request_to_send(uint8_t buffer)
 {
 	PORTB &= ~(1 << PB4);
 	SPI_master_transmit(buffer);
@@ -74,7 +75,7 @@ void MCP_request_to_send(char buffer)
 }
 
 /* Returns some status bits for transmit and receive functions */
-char MCP_read_status(void)
+uint8_t MCP_read_status(void)
 {
 	PORTB &= ~(1 << PB4);
 	SPI_master_transmit(MCP_READ_STATUS);
@@ -85,7 +86,7 @@ char MCP_read_status(void)
 }
 
 /* Returns info about whether a message is in the receive buffer(s), message type and filter match */
-char MCP_rx_status(void)
+uint8_t MCP_rx_status(void)
 {
 	PORTB &= ~(1 << PB4);
 	SPI_master_transmit(MCP_RX_STATUS);
@@ -99,7 +100,7 @@ char MCP_rx_status(void)
 void MCP_set_mode(uint8_t mode)
 {
 	uint8_t mask = 0b11100000;
-	/*
+	
 	uint8_t data = 0b00000000;
 	switch (mode) {
 		case MODE_NORMAL:
@@ -118,12 +119,12 @@ void MCP_set_mode(uint8_t mode)
 		default:
 			break;
 	}
-	*/
+	
 	MCP_modify_bit(MCP_CANCTRL, mask, mode);
 }
 
 /* Changes the value of the register bits specified by the mask */
-void MCP_modify_bit(char addr, char mask, char data)
+void MCP_modify_bit(uint8_t addr, uint8_t mask, uint8_t data)
 {
 	PORTB &= ~(1 << PB4);
 	SPI_master_transmit(MCP_BITMOD);
