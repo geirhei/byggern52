@@ -9,6 +9,9 @@
 #ifndef CAN_H_
 #define CAN_H_
 
+#include "MCP2515.h"
+#include "mcp.h"
+
 typedef struct {
 	unsigned int id;
 	uint8_t length;

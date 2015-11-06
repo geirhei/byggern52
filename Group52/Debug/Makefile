@@ -45,6 +45,7 @@ C_SRCS +=  \
 ../mcp.c \
 ../oled.c \
 ../spi.c \
+../sram.c \
 ../usart.c
 
 
@@ -63,6 +64,7 @@ main.o \
 mcp.o \
 oled.o \
 spi.o \
+sram.o \
 usart.o
 
 OBJS_AS_ARGS +=  \
@@ -74,6 +76,7 @@ main.o \
 mcp.o \
 oled.o \
 spi.o \
+sram.o \
 usart.o
 
 C_DEPS +=  \
@@ -85,6 +88,7 @@ main.d \
 mcp.d \
 oled.d \
 spi.d \
+sram.d \
 usart.d
 
 C_DEPS_AS_ARGS +=  \
@@ -96,6 +100,7 @@ main.d \
 mcp.d \
 oled.d \
 spi.d \
+sram.d \
 usart.d
 
 OUTPUT_FILE_PATH +=Group52.elf
@@ -112,6 +117,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

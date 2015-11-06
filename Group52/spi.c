@@ -18,7 +18,7 @@ void SPI_master_init(void)
 	SPCR = (1 << SPE)|(1 << MSTR)|(1 << SPR0);
 }
 
-void SPI_master_transmit(char cData)
+void SPI_master_transmit(uint8_t cData)
 {
 	/* Start transmission */
 	SPDR = cData;
@@ -27,31 +27,10 @@ void SPI_master_transmit(char cData)
 	while (!(SPSR & (1 << SPIF))) {
 		;
 	}
-	
-	// Interrupt here?
 }
 
-char SPI_master_read(void)
+uint8_t SPI_master_read(void)
 {
-	char data = SPDR;
+	uint8_t data = SPDR;
 	return data;
 }
-
-//
-//void SPI_slave_init(void)
-//{
-	///* Set MISO output, all others input */
-	//DDRD = (1 << PB6);
-	///* Enable SPI */
-	//SPCR = (1 << SPIF);
-//}
-//
-//char SPI_slave_receive(void)
-//{
-	///* Wait for reception to complete */
-	//while (!(SPSR & (1 << SPIF))) {
-		//;
-	//}
-	///* Return data register */
-	//return SPDR;
-//}

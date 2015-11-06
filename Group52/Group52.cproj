@@ -157,6 +157,12 @@
     <Compile Include="spi.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="sram.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="sram.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="usart.c">
       <SubType>compile</SubType>
     </Compile>

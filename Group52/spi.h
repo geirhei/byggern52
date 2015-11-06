@@ -10,10 +10,8 @@
 #define SPI_H_
 
 void SPI_master_init(void);
-void SPI_master_transmit(char cData);
-char SPI_master_read(void);
-//void SPI_slave_init(void);
-//char SPI_slave_receive(void);
+void SPI_master_transmit(uint8_t cData);
+uint8_t SPI_master_read(void);
 
 
 #endif /* SPI_H_ */
