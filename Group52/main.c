@@ -51,23 +51,11 @@ int main(void)
 	
 	/* MCP TEST */
 	
-	char status = MCP_read(MCP_CANCTRL);
-	printf("CANCTRL: %02x\n", status);
+	uint8_t status = MCP_read(MCP_CANCTRL);
+	//printf("CANCTRL: %02x\n", status);
 	
 	uint8_t RXB0CTRL = MCP_read(MCP_RXB0CTRL);
-	printf("RXB0CTRL: %02x\n", RXB0CTRL);
-	
-	//can_message_t received_message = CAN_message_receive();
-	//uint8_t received_data[8];
-	//memcpy(received_data, received_message.data, 8);
-	
-	/*
-	printf("ID: %02x\n", received_message.id);
-	printf("length: %02x\n", received_message.length);
-	for (uint8_t i = 0; i < received_message.length; i++) {
-		printf("Received: %02x\n", received_message.data[i]);
-	}
-	*/
+	//printf("RXB0CTRL: %02x\n", RXB0CTRL);
 	
 	printf("\n");
 
@@ -77,6 +65,8 @@ int main(void)
 	can_message_t joydata;
 	can_message_t joydata_received;
 	
+	uint8_t msg_arrived;
+	can_message_t received_message;
 	can_message_t can_message;
 	can_message.data[0] = 0x01;
 	can_message.data[1] = 0x02;
@@ -92,6 +82,26 @@ int main(void)
 	while(1)
 	{	
 		CAN_message_send(&can_message);
+		
+		/*
+		status = MCP_read_status();
+		printf("Status: %02x\n", status);
+		msg_arrived = (status & 1);
+		//msg_arrived = 1;
+		if (msg_arrived) {
+			received_message = CAN_message_receive();
+			printf("ID: %02x\n", received_message.id);
+			printf("length: %02x\n", received_message.length);
+			for (uint8_t i = 0; i < received_message.length; i++) {
+				printf("Received: %02x\n", received_message.data[i]);
+			}
+		} else {
+			printf("%s\n", "No message in buffer");
+		}
+		*/
+		
+		/* CAN test end */
+		_delay_ms(500);
 		
 		/* Create seperate function for this */
 		joydir = JOYSTICK_get_direction();

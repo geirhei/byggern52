@@ -82,7 +82,7 @@ uint8_t MCP_read_status(void)
 {
 	PORTB &= ~(1 << PB4);
 	SPI_master_transmit(MCP_READ_STATUS);
-	//SPI_master_transmit(0x00); // Unneccessary because of "repeat data out"?
+	SPI_master_transmit(0x00); // Unneccessary because of "repeat data out"?
 	char status = SPDR;
 	PORTB |= (1 << PB4);
 	return status;

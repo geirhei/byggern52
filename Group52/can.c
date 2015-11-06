@@ -17,6 +17,7 @@ void CAN_init(void)
 /* High level function for sending a message on the CAN bus */
 void CAN_message_send(can_message_t* msg)
 {
+	
 	/* Only transmit buffer TXB0 is used */
 	
 	/* Loop until TXREQ is cleared */
