@@ -32,6 +32,8 @@ PositionsType JOYSTICK_get_position(void)
 	int16_t yValue = (int16_t) adc_read(JOYAXIS1);
 	int16_t xValue = (int16_t) adc_read(JOYAXIS2);
 	
+	printf("%i\n", yValue);
+	
 	int16_t xPosition = toPositionPercent(xValue);
 	int16_t yPosition = toPositionPercent(yValue);
 	
@@ -110,12 +112,13 @@ void JOYSTICK_send_position(void)
 	
 	can_message_t can_message;
 	can_message.data[0] = joydir;
-	can_message.data[1] = joypos.y;
-	can_message.data[2] = joypos.x;
+	can_message.data[1] = joypos.x;
+	can_message.data[2] = joypos.y;
 	can_message.data[3] = sliderpos.l;
 	can_message.data[4] = sliderpos.r;
 	can_message.length = 5;
 	can_message.id = 1;
+	
 	
 	CAN_message_send(&can_message);
 }

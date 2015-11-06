@@ -41,11 +41,9 @@ int main(void)
 		/* CAN test begin */
 		//CAN_message_send(&can_message);
 		
-		
 		status = MCP_read_status();
 		printf("Status: %02x\n", status);
 		msg_arrived = (status & 1);
-		//msg_arrived = 1;
 		if (msg_arrived) {
 			received_message = CAN_message_receive();
 			printf("ID: %02x\n", received_message.id);

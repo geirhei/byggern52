@@ -29,9 +29,10 @@ uint8_t adc_read(DeviceType device){
 		break;
 		
 		case RSLIDER:
-		/* Select CH1 */
+		/* Select CH4 */
 		adc[0] = 0b00000111;
 		break;
+		
 		default:
 		break;
 	}
