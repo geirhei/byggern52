@@ -81,7 +81,8 @@ int main(void)
 	
 	while(1)
 	{	
-		CAN_message_send(&can_message);
+		//CAN_message_send(&can_message);
+		JOYSTICK_send_position();
 		
 		/*
 		status = MCP_read_status();

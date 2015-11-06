@@ -6,12 +6,13 @@
  */ 
 
 #define F_CPU 4915200
-#include "joystick.h"
-#include "adc.h"
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdio.h>
 #include "math.h"
+#include "joystick.h"
+#include "adc.h"
+#include "can.h"
 
 void JOYSTICK_init(void)
 {
@@ -26,7 +27,7 @@ void JOYSTICK_calibrate(void)
 	
 }
 
-struct positions JOYSTICK_get_position(void)
+PositionsType JOYSTICK_get_position(void)
 {
 	int16_t yValue = (int16_t) adc_read(JOYAXIS1);
 	int16_t xValue = (int16_t) adc_read(JOYAXIS2);
@@ -34,7 +35,7 @@ struct positions JOYSTICK_get_position(void)
 	int16_t xPosition = toPositionPercent(xValue);
 	int16_t yPosition = toPositionPercent(yValue);
 	
-	struct positions pos;
+	PositionsType pos;
 	pos.x = xPosition;
 	pos.y = yPosition;
 	
@@ -44,7 +45,7 @@ struct positions JOYSTICK_get_position(void)
 
 DirectionType JOYSTICK_get_direction(void)
 {
-	struct positions pos = JOYSTICK_get_position();
+	PositionsType pos = JOYSTICK_get_position();
 	int8_t THRESHOLD = 25;
 	
 	if (pos.y < THRESHOLD && pos.y > -THRESHOLD) {
@@ -75,7 +76,7 @@ int16_t toPositionPercent(int16_t value)
 	return percentValue;
 }
 
-struct positions SLIDERS_get_positions(void)
+PositionsType SLIDERS_get_positions(void)
 {
 	int16_t lValue = adc_read(LSLIDER);
 	int16_t rValue = adc_read(RSLIDER);
@@ -87,7 +88,7 @@ struct positions SLIDERS_get_positions(void)
 	int16_t lPosition = toPositionPercent(lValue);
 	int16_t rPosition = toPositionPercent(rValue);
 	
-	struct positions pos;
+	PositionsType pos;
 	pos.l = lPosition;
 	pos.r = rPosition;
 	
@@ -97,4 +98,24 @@ struct positions SLIDERS_get_positions(void)
 uint8_t JOYSTICK_read_button(void)
 {
 	return (PINB & (1 << PB2)) == 0;
+}
+
+/* Sends a message containing position values in percentage for joystick and sliders, and direction
+	over the CAN bus.*/
+void JOYSTICK_send_position(void)
+{
+	DirectionType joydir = JOYSTICK_get_direction();
+	PositionsType joypos = JOYSTICK_get_position();
+	PositionsType sliderpos = SLIDERS_get_positions();
+	
+	can_message_t can_message;
+	can_message.data[0] = joydir;
+	can_message.data[1] = joypos.y;
+	can_message.data[2] = joypos.x;
+	can_message.data[3] = sliderpos.l;
+	can_message.data[4] = sliderpos.r;
+	can_message.length = 5;
+	can_message.id = 1;
+	
+	CAN_message_send(&can_message);
 }
