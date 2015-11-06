@@ -25,8 +25,6 @@
 #include "can.h"
 
 void blink();
-void SRAM_test(void);
-void SRAM_test2(void);
 
 
 int main(void)
@@ -38,7 +36,6 @@ int main(void)
 	USART_init(MYUBBR);
 	OLED_init();
 	JOYSTICK_init();
-	SPI_master_init();
 	CAN_init();
 	
 	OLED_reset();
@@ -57,6 +54,29 @@ int main(void)
 	char status = MCP_read(MCP_CANCTRL);
 	printf("CANCTRL: %02x\n", status);
 	
+	uint8_t RXB0CTRL = MCP_read(MCP_RXB0CTRL);
+	printf("RXB0CTRL: %02x\n", RXB0CTRL);
+	
+	//can_message_t received_message = CAN_message_receive();
+	//uint8_t received_data[8];
+	//memcpy(received_data, received_message.data, 8);
+	
+	/*
+	printf("ID: %02x\n", received_message.id);
+	printf("length: %02x\n", received_message.length);
+	for (uint8_t i = 0; i < received_message.length; i++) {
+		printf("Received: %02x\n", received_message.data[i]);
+	}
+	*/
+	
+	printf("\n");
+
+	
+	/* MCP TEST END */
+	
+	can_message_t joydata;
+	can_message_t joydata_received;
+	
 	can_message_t can_message;
 	can_message.data[0] = 0x01;
 	can_message.data[1] = 0x02;
@@ -68,44 +88,13 @@ int main(void)
 	can_message.data[7] = 0x08;
 	can_message.length = 8;
 	can_message.id = 2;
-	CAN_message_send(&can_message);
-	
-	uint8_t RXB0CTRL = MCP_read(MCP_RXB0CTRL);
-	printf("RXB0CTRL: %02x\n", RXB0CTRL);
-	
-	can_message_t received_message = CAN_message_receive();
-	//uint8_t received_data[8];
-	//memcpy(received_data, received_message.data, 8);
-	
-	printf("ID: %02x\n", received_message.id);
-	printf("length: %02x\n", received_message.length);
-	for (uint8_t i = 0; i < received_message.length; i++) {
-		printf("Received: %02x\n", received_message.data[i]);
-	}
-	
-	
-	
-	printf("\n");
-
-	
-	/* MCP TEST END */
-	
-	can_message_t joydata;
-	can_message_t joydata_received;
 	
 	while(1)
 	{	
+		CAN_message_send(&can_message);
 		
-				
 		/* Create seperate function for this */
 		joydir = JOYSTICK_get_direction();
-		
-		joydata.id = 1;
-		joydata.length = 2;
-		joydata.data[0] = (uint8_t) 'J';
-		joydata.data[1] = joydir;
-		
-		CAN_message_send(&joydata);
 		
 		lastRow = currentRow;
 		if (joydir == UP) {
@@ -130,11 +119,12 @@ int main(void)
 			menu = menu->children[currentRow];
 		}
 		
-		
+		/*
 		joydata_received = CAN_message_receive();
 		for (uint8_t i = 0; i < received_message.length; i++) {
 			printf("Received: %02x\n", received_message.data[i]);
 		}
+		*/
 	}
 	
 	return 0;
