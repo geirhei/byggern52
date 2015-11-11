@@ -135,6 +135,12 @@
     <Compile Include="Servo.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="servo_controller.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="servo_controller.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="spi.c">
       <SubType>compile</SubType>
     </Compile>

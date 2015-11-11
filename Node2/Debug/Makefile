@@ -40,6 +40,7 @@ C_SRCS +=  \
 ../can.c \
 ../mcp.c \
 ../node_2.c \
+../servo_controller.c \
 ../spi.c \
 ../usart.c
 
@@ -54,6 +55,7 @@ OBJS +=  \
 can.o \
 mcp.o \
 node_2.o \
+servo_controller.o \
 spi.o \
 usart.o
 
@@ -61,6 +63,7 @@ OBJS_AS_ARGS +=  \
 can.o \
 mcp.o \
 node_2.o \
+servo_controller.o \
 spi.o \
 usart.o
 
@@ -68,6 +71,7 @@ C_DEPS +=  \
 can.d \
 mcp.d \
 node_2.d \
+servo_controller.d \
 spi.d \
 usart.d
 
@@ -75,6 +79,7 @@ C_DEPS_AS_ARGS +=  \
 can.d \
 mcp.d \
 node_2.d \
+servo_controller.d \
 spi.d \
 usart.d
 
@@ -92,6 +97,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

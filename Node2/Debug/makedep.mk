@@ -8,6 +8,8 @@ mcp.c
 
 node_2.c
 
+servo_controller.c
+
 spi.c
 
 usart.c
