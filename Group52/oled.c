@@ -51,10 +51,11 @@ void OLED_update(menuNode *menu)
 {
 	uint8_t currentRow = 1;
 	uint8_t lastRow = 0;
-	DirectionType joydir = NEUTRAL;
+	Direction joydir = NEUTRAL;
 	uint8_t buttonPressed = 0;
 	
-	joydir = JOYSTICK_get_direction();
+	position_t joypos = JOYSTICK_get_position();
+	joydir = JOYSTICK_get_direction(joypos);
 	lastRow = currentRow;
 	if (joydir == UP) {
 		if (currentRow == 1) {

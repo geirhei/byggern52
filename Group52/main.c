@@ -46,7 +46,7 @@ int main(void)
 	
 	uint8_t currentRow = 1;
 	uint8_t lastRow = 0;
-	DirectionType joydir = NEUTRAL;
+	Direction joydir = NEUTRAL;
 	uint8_t buttonPressed = 0;
 	
 	/* MCP TEST */
@@ -105,7 +105,8 @@ int main(void)
 		_delay_ms(500);
 		
 		/* Create seperate function for this */
-		joydir = JOYSTICK_get_direction();
+		position_t position = JOYSTICK_get_position();
+		joydir = JOYSTICK_get_direction(position);
 		
 		lastRow = currentRow;
 		if (joydir == UP) {

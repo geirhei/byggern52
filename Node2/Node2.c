@@ -35,8 +35,7 @@ int main(void)
 	can_message.length = 8;
 	can_message.id = 2;
 	
-	while(1)
-	{	
+	while(1) {	
 		
 		/* CAN test begin */
 		//CAN_message_send(&can_message);
@@ -48,9 +47,18 @@ int main(void)
 			received_message = CAN_message_receive();
 			printf("ID: %02x\n", received_message.id);
 			printf("length: %02x\n", received_message.length);
+			printf("Message type: %s\n", received_message.data[0]);
+			printf("Direction: %i\n", received_message.data[1]);
+			printf("X: %i\n", received_message.data[2]);
+			printf("Y: %i\n", received_message.data[3]);
+			printf("Slider l: %i\n", received_message.data[4]);
+			printf("Slider r: %i\n", received_message.data[5]);
+			
+			/*
 			for (uint8_t i = 0; i < received_message.length; i++) {
 				printf("Received: %02x\n", received_message.data[i]);
 			}
+			*/
 		} else {
 			printf("%s\n", "No message in buffer");
 		}
@@ -59,5 +67,4 @@ int main(void)
 		/* CAN test end */
 		_delay_ms(500);
 	}
-
 }
