@@ -3,15 +3,15 @@ Archive member included because of file (symbol)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_exit.o)
                               c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o (exit)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr6\libgcc.a(_copy_data.o)
-                              node_2.o (__do_copy_data)
+                              Node2.o (__do_copy_data)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(fdevopen.o)
-                              node_2.o (fdevopen)
+                              Node2.o (fdevopen)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(iob.o)
                               c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(fdevopen.o) (__iob)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(printf.o)
-                              node_2.o (printf)
+                              Node2.o (printf)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(puts.o)
-                              node_2.o (puts)
+                              Node2.o (puts)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(vfprintf_std.o)
                               c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(printf.o) (vfprintf)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(calloc.o)
@@ -60,9 +60,9 @@ Discarded input sections
                 0x00000000        0xa mcp.o
  .text.MCP_rx_status
                 0x00000000        0xe mcp.o
- .text          0x00000000        0x0 node_2.o
- .data          0x00000000        0x0 node_2.o
- .bss           0x00000000        0x0 node_2.o
+ .text          0x00000000        0x0 Node2.o
+ .data          0x00000000        0x0 Node2.o
+ .bss           0x00000000        0x0 Node2.o
  .text          0x00000000        0x0 spi.o
  .data          0x00000000        0x0 spi.o
  .bss           0x00000000        0x0 spi.o
@@ -175,7 +175,7 @@ Address of section .data set to 0x800200
 LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
 LOAD can.o
 LOAD mcp.o
-LOAD node_2.o
+LOAD Node2.o
 LOAD spi.o
 LOAD usart.o
 START GROUP
@@ -417,7 +417,7 @@ END GROUP
  .text.MCP_init
                 0x0000023a       0x1a mcp.o
                 0x0000023a                MCP_init
- .text.main     0x00000254      0x122 node_2.o
+ .text.main     0x00000254      0x122 Node2.o
                 0x00000254                main
  .text.SPI_master_init
                 0x00000376        0xa spi.o
@@ -506,7 +506,7 @@ END GROUP
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x00800206       0x86 node_2.o
+                0x00800206       0x86 Node2.o
  *(.gnu.linkonce.d*)
                 0x0080028c                . = ALIGN (0x2)
                 0x0080028c                _edata = .
@@ -575,7 +575,7 @@ END GROUP
  .comment       0x00000000       0x30 can.o
                                  0x31 (size before relaxing)
  .comment       0x00000000       0x31 mcp.o
- .comment       0x00000000       0x31 node_2.o
+ .comment       0x00000000       0x31 Node2.o
  .comment       0x00000000       0x31 spi.o
  .comment       0x00000000       0x31 usart.o
  .comment       0x00000000       0x31 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr6\libc.a(fdevopen.o)
@@ -610,7 +610,7 @@ END GROUP
  .debug_aranges
                 0x00000030       0x70 mcp.o
  .debug_aranges
-                0x000000a0       0x20 node_2.o
+                0x000000a0       0x20 Node2.o
  .debug_aranges
                 0x000000c0       0x30 spi.o
  .debug_aranges
@@ -623,7 +623,7 @@ END GROUP
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x2e3 can.o
  .debug_info    0x000002e3      0x48e mcp.o
- .debug_info    0x00000771      0x3d9 node_2.o
+ .debug_info    0x00000771      0x3d9 Node2.o
  .debug_info    0x00000b4a       0xd3 spi.o
  .debug_info    0x00000c1d      0x107 usart.o
 
@@ -631,44 +631,44 @@ END GROUP
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x19a can.o
  .debug_abbrev  0x0000019a      0x13b mcp.o
- .debug_abbrev  0x000002d5      0x1fe node_2.o
+ .debug_abbrev  0x000002d5      0x1fe Node2.o
  .debug_abbrev  0x000004d3       0xa3 spi.o
  .debug_abbrev  0x00000576       0xbb usart.o
 
-.debug_line     0x00000000      0x833
+.debug_line     0x00000000      0x832
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x175 can.o
  .debug_line    0x00000175      0x29c mcp.o
- .debug_line    0x00000411      0x1ea node_2.o
- .debug_line    0x000005fb       0xf7 spi.o
- .debug_line    0x000006f2      0x141 usart.o
+ .debug_line    0x00000411      0x1e9 Node2.o
+ .debug_line    0x000005fa       0xf7 spi.o
+ .debug_line    0x000006f1      0x141 usart.o
 
 .debug_frame    0x00000000      0x260
  *(.debug_frame)
  .debug_frame   0x00000000       0x94 can.o
  .debug_frame   0x00000094       0xf0 mcp.o
- .debug_frame   0x00000184       0x34 node_2.o
+ .debug_frame   0x00000184       0x34 Node2.o
  .debug_frame   0x000001b8       0x44 spi.o
  .debug_frame   0x000001fc       0x64 usart.o
 
-.debug_str      0x00000000      0x367
+.debug_str      0x00000000      0x366
  *(.debug_str)
  .debug_str     0x00000000      0x1b2 can.o
                                 0x201 (size before relaxing)
  .debug_str     0x000001b2       0x84 mcp.o
                                 0x22a (size before relaxing)
- .debug_str     0x00000236       0xcf node_2.o
-                                0x26a (size before relaxing)
- .debug_str     0x00000305       0x21 spi.o
+ .debug_str     0x00000236       0xce Node2.o
+                                0x269 (size before relaxing)
+ .debug_str     0x00000304       0x21 spi.o
                                 0x184 (size before relaxing)
- .debug_str     0x00000326       0x41 usart.o
+ .debug_str     0x00000325       0x41 usart.o
                                 0x18b (size before relaxing)
 
 .debug_loc      0x00000000      0x56a
  *(.debug_loc)
  .debug_loc     0x00000000      0x243 can.o
  .debug_loc     0x00000243      0x272 mcp.o
- .debug_loc     0x000004b5       0x47 node_2.o
+ .debug_loc     0x000004b5       0x47 Node2.o
  .debug_loc     0x000004fc       0x6e usart.o
 
 .debug_macinfo
@@ -693,7 +693,7 @@ END GROUP
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x20 can.o
  .debug_ranges  0x00000020       0x60 mcp.o
- .debug_ranges  0x00000080       0x10 node_2.o
+ .debug_ranges  0x00000080       0x10 Node2.o
  .debug_ranges  0x00000090       0x20 spi.o
  .debug_ranges  0x000000b0       0x28 usart.o
 

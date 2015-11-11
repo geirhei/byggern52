@@ -19,14 +19,33 @@ typedef enum {
 	DOWN = 4
 } Direction;
 
+/*
+typedef enum {
+	NEUTRAL = 0,
+	LEFT = 1,
+	RIGHT = 2,
+	UP = 3,
+	DOWN = 4
+} DirectionType;
+*/
+
+/*
+typedef struct {
+	int16_t x, y, l, r;
+} PositionsType;
+*/
+
 typedef struct {
 	uint8_t x, y, l, r;
 } position_t;
 
 void JOYSTICK_init(void);
 void JOYSTICK_calibrate(void);
+//PositionsType JOYSTICK_get_position(void);
 position_t JOYSTICK_get_position(void);
+//DirectionType JOYSTICK_get_direction(void);
 Direction JOYSTICK_get_direction(position_t pos);
+//PositionsType SLIDERS_get_positions(void);
 position_t SLIDERS_get_positions(void);
 int16_t toPositionPercent(int16_t value);
 uint8_t JOYSTICK_read_button(void);

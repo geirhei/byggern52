@@ -6,7 +6,7 @@ can.c
 
 mcp.c
 
-node_2.c
+Node2.c
 
 servo_controller.c
 
