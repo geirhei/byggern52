@@ -6,7 +6,7 @@ can.c
 
 mcp.c
 
-Node2.c
+node_2.c
 
 spi.c
 

@@ -39,7 +39,7 @@ SUBDIRS :=
 C_SRCS +=  \
 ../can.c \
 ../mcp.c \
-../Node2.c \
+../node_2.c \
 ../spi.c \
 ../usart.c
 
@@ -53,28 +53,28 @@ ASM_SRCS +=
 OBJS +=  \
 can.o \
 mcp.o \
-Node2.o \
+node_2.o \
 spi.o \
 usart.o
 
 OBJS_AS_ARGS +=  \
 can.o \
 mcp.o \
-Node2.o \
+node_2.o \
 spi.o \
 usart.o
 
 C_DEPS +=  \
 can.d \
 mcp.d \
-Node2.d \
+node_2.d \
 spi.d \
 usart.d
 
 C_DEPS_AS_ARGS +=  \
 can.d \
 mcp.d \
-Node2.d \
+node_2.d \
 spi.d \
 usart.d
 
