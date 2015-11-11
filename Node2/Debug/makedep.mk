@@ -6,11 +6,11 @@ can.c
 
 mcp.c
 
-Node2.c
+node_2.c
 
-servo_controller.c
+servo.c
 
-spi.c
+spi_2.c
 
-usart.c
+usart_2.c
 

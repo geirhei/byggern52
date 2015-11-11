@@ -17,15 +17,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   6 .debug_abbrev 00000d3a  00000000  00000000  00003627  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000c1a  00000000  00000000  00004361  2**0
+  7 .debug_line   00000c1d  00000000  00000000  00004361  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  000004c8  00000000  00000000  00004f7c  2**2
+  8 .debug_frame  000004c8  00000000  00000000  00004f80  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000006dd  00000000  00000000  00005444  2**0
+  9 .debug_str    000006df  00000000  00000000  00005448  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000fe7  00000000  00000000  00005b21  2**0
+ 10 .debug_loc    00000fe7  00000000  00000000  00005b27  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 000001d8  00000000  00000000  00006b08  2**0
+ 11 .debug_ranges 000001d8  00000000  00000000  00006b0e  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -286,7 +286,7 @@ Disassembly of section .text:
  218:	a6 35       	cpi	r26, 0x56	; 86
  21a:	b2 07       	cpc	r27, r18
  21c:	e1 f7       	brne	.-8      	; 0x216 <.do_clear_bss_loop>
- 21e:	0e 94 f4 01 	call	0x3e8	; 0x3e8 <main>
+ 21e:	0e 94 5b 02 	call	0x4b6	; 0x4b6 <main>
  222:	0c 94 e5 05 	jmp	0xbca	; 0xbca <_exit>
 
 00000226 <__bad_interrupt>:
@@ -369,7 +369,7 @@ uint8_t adc_read(DeviceType device){
 void CAN_init(void)
 {
 	MCP_init();
- 274:	0e 94 9f 02 	call	0x53e	; 0x53e <MCP_init>
+ 274:	0e 94 49 02 	call	0x492	; 0x492 <MCP_init>
  278:	08 95       	ret
 
 0000027a <CAN_message_send>:
@@ -387,13 +387,13 @@ void CAN_message_send(can_message_t* msg)
 	
 	/* Loop until TXREQ is cleared */
 	uint8_t status = MCP_read_status();
- 282:	0e 94 77 02 	call	0x4ee	; 0x4ee <MCP_read_status>
+ 282:	0e 94 21 02 	call	0x442	; 0x442 <MCP_read_status>
 	uint8_t TXREQ = (status & (1 << 2));
 	while (TXREQ) {
  286:	82 ff       	sbrs	r24, 2
  288:	04 c0       	rjmp	.+8      	; 0x292 <CAN_message_send+0x18>
 		status = MCP_read_status();
- 28a:	0e 94 77 02 	call	0x4ee	; 0x4ee <MCP_read_status>
+ 28a:	0e 94 21 02 	call	0x442	; 0x442 <MCP_read_status>
 	/* Only transmit buffer TXB0 is used */
 	
 	/* Loop until TXREQ is cleared */
@@ -410,21 +410,21 @@ void CAN_message_send(can_message_t* msg)
 	MCP_write(MCP_TXB0CTRL + 1, 0); // High level identifier
  292:	60 e0       	ldi	r22, 0x00	; 0
  294:	81 e3       	ldi	r24, 0x31	; 49
- 296:	0e 94 60 02 	call	0x4c0	; 0x4c0 <MCP_write>
+ 296:	0e 94 0a 02 	call	0x414	; 0x414 <MCP_write>
 	MCP_write(MCP_TXB0CTRL + 2, (msg->id << 5)); // Low level identifier
  29a:	68 81       	ld	r22, Y
  29c:	62 95       	swap	r22
  29e:	66 0f       	add	r22, r22
  2a0:	60 7e       	andi	r22, 0xE0	; 224
  2a2:	82 e3       	ldi	r24, 0x32	; 50
- 2a4:	0e 94 60 02 	call	0x4c0	; 0x4c0 <MCP_write>
+ 2a4:	0e 94 0a 02 	call	0x414	; 0x414 <MCP_write>
 	
 	/* Set data length */
 	MCP_write(MCP_TXB0CTRL + 5, msg->length & 0x0F);
  2a8:	6a 81       	ldd	r22, Y+2	; 0x02
  2aa:	6f 70       	andi	r22, 0x0F	; 15
  2ac:	85 e3       	ldi	r24, 0x35	; 53
- 2ae:	0e 94 60 02 	call	0x4c0	; 0x4c0 <MCP_write>
+ 2ae:	0e 94 0a 02 	call	0x414	; 0x414 <MCP_write>
 	
 	/* Load message data */
 	for (uint8_t i = 0; i < msg->length; i++) {
@@ -439,7 +439,7 @@ void CAN_message_send(can_message_t* msg)
  2c0:	63 81       	ldd	r22, Z+3	; 0x03
  2c2:	86 e3       	ldi	r24, 0x36	; 54
  2c4:	81 0f       	add	r24, r17
- 2c6:	0e 94 60 02 	call	0x4c0	; 0x4c0 <MCP_write>
+ 2c6:	0e 94 0a 02 	call	0x414	; 0x414 <MCP_write>
 	
 	/* Set data length */
 	MCP_write(MCP_TXB0CTRL + 5, msg->length & 0x0F);
@@ -456,7 +456,7 @@ void CAN_message_send(can_message_t* msg)
 	/* Request to send contents of TXB0 */
 	MCP_request_to_send(MCP_RTS_TX0);
  2d2:	81 e8       	ldi	r24, 0x81	; 129
- 2d4:	0e 94 72 02 	call	0x4e4	; 0x4e4 <MCP_request_to_send>
+ 2d4:	0e 94 1c 02 	call	0x438	; 0x438 <MCP_request_to_send>
 }
  2d8:	df 91       	pop	r29
  2da:	cf 91       	pop	r28
@@ -630,8 +630,6 @@ position_t SLIDERS_get_positions(void)
  370:	08 95       	ret
 
 00000372 <JOYSTICK_read_button>:
-}
-*/
 
 uint8_t JOYSTICK_read_button(void)
 {
@@ -647,7 +645,7 @@ uint8_t JOYSTICK_read_button(void)
 
 00000380 <JOYSTICK_send_position>:
 
-/* Sends a message containing position values in percentage for joystick and sliders, and direction
+/* Sends a message containing position values 0-255 for joystick and sliders, and direction
 	over the CAN bus.*/
 void JOYSTICK_send_position(void)
 {
@@ -664,11 +662,6 @@ void JOYSTICK_send_position(void)
  394:	de bf       	out	0x3e, r29	; 62
  396:	0f be       	out	0x3f, r0	; 63
  398:	cd bf       	out	0x3d, r28	; 61
-	DirectionType joydir = JOYSTICK_get_direction();
-	PositionsType joypos = JOYSTICK_get_position();
-	PositionsType sliderpos = SLIDERS_get_positions();
-	*/
-	
 	position_t joypos = JOYSTICK_get_position();
  39a:	0e 94 75 01 	call	0x2ea	; 0x2ea <JOYSTICK_get_position>
  39e:	06 2f       	mov	r16, r22
@@ -721,355 +714,355 @@ void JOYSTICK_send_position(void)
  3e4:	ff 90       	pop	r15
  3e6:	08 95       	ret
 
-000003e8 <main>:
-
-
-int main(void)
-{
-	/* Needs to be set when using external memory */
-	MCUCR |= (1 << SRE);
- 3e8:	85 b7       	in	r24, 0x35	; 53
- 3ea:	80 68       	ori	r24, 0x80	; 128
- 3ec:	85 bf       	out	0x35, r24	; 53
-
-	fdevopen(USART_transmit, USART_receive);
- 3ee:	63 e1       	ldi	r22, 0x13	; 19
- 3f0:	74 e0       	ldi	r23, 0x04	; 4
- 3f2:	8f e0       	ldi	r24, 0x0F	; 15
- 3f4:	94 e0       	ldi	r25, 0x04	; 4
- 3f6:	0e 94 3e 05 	call	0xa7c	; 0xa7c <fdevopen>
-	USART_init(MYUBBR);
- 3fa:	8f e1       	ldi	r24, 0x1F	; 31
- 3fc:	90 e0       	ldi	r25, 0x00	; 0
- 3fe:	0e 94 08 04 	call	0x810	; 0x810 <USART_init>
-	OLED_init();
- 402:	0e 94 e6 02 	call	0x5cc	; 0x5cc <OLED_init>
-	JOYSTICK_init();
- 406:	0e 94 70 01 	call	0x2e0	; 0x2e0 <JOYSTICK_init>
-	CAN_init();
- 40a:	0e 94 3a 01 	call	0x274	; 0x274 <CAN_init>
-	
-	OLED_reset();
- 40e:	0e 94 d8 02 	call	0x5b0	; 0x5b0 <OLED_reset>
-	OLED_pos(2,20);
- 412:	64 e1       	ldi	r22, 0x14	; 20
- 414:	82 e0       	ldi	r24, 0x02	; 2
- 416:	0e 94 cb 02 	call	0x596	; 0x596 <OLED_pos>
-	
-	menuNode *menu = OLED_generate_menu();
- 41a:	0e 94 7b 03 	call	0x6f6	; 0x6f6 <OLED_generate_menu>
-	OLED_print_menu(menu);
- 41e:	0e 94 bf 03 	call	0x77e	; 0x77e <OLED_print_menu>
-	Direction joydir = NEUTRAL;
-	uint8_t buttonPressed = 0;
-	
-	/* MCP TEST */
-	
-	uint8_t status = MCP_read(MCP_CANCTRL);
- 422:	8f e0       	ldi	r24, 0x0F	; 15
- 424:	0e 94 50 02 	call	0x4a0	; 0x4a0 <MCP_read>
-	//printf("CANCTRL: %02x\n", status);
-	
-	uint8_t RXB0CTRL = MCP_read(MCP_RXB0CTRL);
- 428:	80 e6       	ldi	r24, 0x60	; 96
- 42a:	0e 94 50 02 	call	0x4a0	; 0x4a0 <MCP_read>
-	//printf("RXB0CTRL: %02x\n", RXB0CTRL);
-	
-	printf("\n");
- 42e:	8a e0       	ldi	r24, 0x0A	; 10
- 430:	90 e0       	ldi	r25, 0x00	; 0
- 432:	0e 94 89 05 	call	0xb12	; 0xb12 <putchar>
-	OLED_pos(2,20);
-	
-	menuNode *menu = OLED_generate_menu();
-	OLED_print_menu(menu);
-	
-	uint8_t currentRow = 1;
- 436:	c1 e0       	ldi	r28, 0x01	; 1
-				currentRow -= 1;
-			}
-			
-		} else if (joydir == DOWN) {
-			if (currentRow == 7) {
-				currentRow = 1;
- 438:	01 e0       	ldi	r16, 0x01	; 1
-		joydir = JOYSTICK_get_direction(position);
-		
-		lastRow = currentRow;
-		if (joydir == UP) {
-			if (currentRow == 1) {
-				currentRow = 7;
- 43a:	17 e0       	ldi	r17, 0x07	; 7
-	can_message.id = 2;
-	
-	while(1)
-	{	
-		//CAN_message_send(&can_message);
-		JOYSTICK_send_position();
- 43c:	0e 94 c0 01 	call	0x380	; 0x380 <JOYSTICK_send_position>
- 440:	2f ef       	ldi	r18, 0xFF	; 255
- 442:	8f e7       	ldi	r24, 0x7F	; 127
- 444:	97 e0       	ldi	r25, 0x07	; 7
- 446:	21 50       	subi	r18, 0x01	; 1
- 448:	80 40       	sbci	r24, 0x00	; 0
- 44a:	90 40       	sbci	r25, 0x00	; 0
- 44c:	e1 f7       	brne	.-8      	; 0x446 <main+0x5e>
- 44e:	00 c0       	rjmp	.+0      	; 0x450 <main+0x68>
- 450:	00 00       	nop
-		
-		/* CAN test end */
-		_delay_ms(500);
-		
-		/* Create seperate function for this */
-		position_t position = JOYSTICK_get_position();
- 452:	0e 94 75 01 	call	0x2ea	; 0x2ea <JOYSTICK_get_position>
-		joydir = JOYSTICK_get_direction(position);
- 456:	0e 94 83 01 	call	0x306	; 0x306 <JOYSTICK_get_direction>
-		
-		lastRow = currentRow;
-		if (joydir == UP) {
- 45a:	83 30       	cpi	r24, 0x03	; 3
- 45c:	29 f4       	brne	.+10     	; 0x468 <main+0x80>
-			if (currentRow == 1) {
- 45e:	c1 30       	cpi	r28, 0x01	; 1
- 460:	51 f0       	breq	.+20     	; 0x476 <main+0x8e>
-				currentRow = 7;
-			} else {
-				currentRow -= 1;
- 462:	df ef       	ldi	r29, 0xFF	; 255
- 464:	dc 0f       	add	r29, r28
- 466:	0c c0       	rjmp	.+24     	; 0x480 <main+0x98>
-			}
-			
-		} else if (joydir == DOWN) {
- 468:	84 30       	cpi	r24, 0x04	; 4
- 46a:	39 f4       	brne	.+14     	; 0x47a <main+0x92>
-			if (currentRow == 7) {
- 46c:	c7 30       	cpi	r28, 0x07	; 7
- 46e:	39 f0       	breq	.+14     	; 0x47e <main+0x96>
-				currentRow = 1;
-			} else {
-				currentRow += 1;
- 470:	d1 e0       	ldi	r29, 0x01	; 1
- 472:	dc 0f       	add	r29, r28
- 474:	05 c0       	rjmp	.+10     	; 0x480 <main+0x98>
-		joydir = JOYSTICK_get_direction(position);
-		
-		lastRow = currentRow;
-		if (joydir == UP) {
-			if (currentRow == 1) {
-				currentRow = 7;
- 476:	d1 2f       	mov	r29, r17
- 478:	03 c0       	rjmp	.+6      	; 0x480 <main+0x98>
- 47a:	dc 2f       	mov	r29, r28
- 47c:	01 c0       	rjmp	.+2      	; 0x480 <main+0x98>
-				currentRow -= 1;
-			}
-			
-		} else if (joydir == DOWN) {
-			if (currentRow == 7) {
-				currentRow = 1;
- 47e:	d0 2f       	mov	r29, r16
-			} else {
-				currentRow += 1;
-			}
-		}
-		
-		OLED_move_arrow(currentRow, 20, lastRow, 20);
- 480:	24 e1       	ldi	r18, 0x14	; 20
- 482:	4c 2f       	mov	r20, r28
- 484:	64 e1       	ldi	r22, 0x14	; 20
- 486:	8d 2f       	mov	r24, r29
- 488:	0e 94 56 03 	call	0x6ac	; 0x6ac <OLED_move_arrow>
-		buttonPressed = JOYSTICK_read_button();
- 48c:	0e 94 b9 01 	call	0x372	; 0x372 <JOYSTICK_read_button>
-		joydata_received = CAN_message_receive();
-		for (uint8_t i = 0; i < received_message.length; i++) {
-			printf("Received: %02x\n", received_message.data[i]);
-		}
-		*/
-	}
- 490:	cd 2f       	mov	r28, r29
- 492:	d4 cf       	rjmp	.-88     	; 0x43c <main+0x54>
-
-00000494 <MCP_reset>:
+000003e8 <MCP_reset>:
 	MCP_set_mode(MODE_NORMAL); // Sets normal operation mode
 }
 
 void MCP_reset(void)
 {
 	PORTB &= ~(1 << PB4);
- 494:	c4 98       	cbi	0x18, 4	; 24
+ 3e8:	c4 98       	cbi	0x18, 4	; 24
 	SPI_master_transmit(MCP_RESET);
- 496:	80 ec       	ldi	r24, 0xC0	; 192
- 498:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
+ 3ea:	80 ec       	ldi	r24, 0xC0	; 192
+ 3ec:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
 	PORTB |= (1 << PB4);
- 49c:	c4 9a       	sbi	0x18, 4	; 24
- 49e:	08 95       	ret
+ 3f0:	c4 9a       	sbi	0x18, 4	; 24
+ 3f2:	08 95       	ret
 
-000004a0 <MCP_read>:
+000003f4 <MCP_read>:
 }
 
 /* Returns the content of a register */
 uint8_t MCP_read(uint8_t addr)
 {
- 4a0:	cf 93       	push	r28
- 4a2:	c8 2f       	mov	r28, r24
+ 3f4:	cf 93       	push	r28
+ 3f6:	c8 2f       	mov	r28, r24
 	PORTB &= ~(1 << PB4);
- 4a4:	c4 98       	cbi	0x18, 4	; 24
+ 3f8:	c4 98       	cbi	0x18, 4	; 24
 	SPI_master_transmit(MCP_READ);
- 4a6:	83 e0       	ldi	r24, 0x03	; 3
- 4a8:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
+ 3fa:	83 e0       	ldi	r24, 0x03	; 3
+ 3fc:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
 	SPI_master_transmit(addr);
- 4ac:	8c 2f       	mov	r24, r28
- 4ae:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
+ 400:	8c 2f       	mov	r24, r28
+ 402:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
 	SPI_master_transmit(0x00);
- 4b2:	80 e0       	ldi	r24, 0x00	; 0
- 4b4:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
+ 406:	80 e0       	ldi	r24, 0x00	; 0
+ 408:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
 	char data = SPDR;
- 4b8:	8f b1       	in	r24, 0x0f	; 15
+ 40c:	8f b1       	in	r24, 0x0f	; 15
 	PORTB |= (1 << PB4);
- 4ba:	c4 9a       	sbi	0x18, 4	; 24
+ 40e:	c4 9a       	sbi	0x18, 4	; 24
 	return data;
 }
- 4bc:	cf 91       	pop	r28
- 4be:	08 95       	ret
+ 410:	cf 91       	pop	r28
+ 412:	08 95       	ret
 
-000004c0 <MCP_write>:
+00000414 <MCP_write>:
 
 void MCP_write(uint8_t addr, uint8_t data)
 {
- 4c0:	cf 93       	push	r28
- 4c2:	df 93       	push	r29
- 4c4:	d8 2f       	mov	r29, r24
- 4c6:	c6 2f       	mov	r28, r22
+ 414:	cf 93       	push	r28
+ 416:	df 93       	push	r29
+ 418:	d8 2f       	mov	r29, r24
+ 41a:	c6 2f       	mov	r28, r22
 	PORTB &= ~(1 << PB4);
- 4c8:	c4 98       	cbi	0x18, 4	; 24
+ 41c:	c4 98       	cbi	0x18, 4	; 24
 	SPI_master_transmit(MCP_WRITE);
- 4ca:	82 e0       	ldi	r24, 0x02	; 2
- 4cc:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
+ 41e:	82 e0       	ldi	r24, 0x02	; 2
+ 420:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
 	SPI_master_transmit(addr);
- 4d0:	8d 2f       	mov	r24, r29
- 4d2:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
+ 424:	8d 2f       	mov	r24, r29
+ 426:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
 	SPI_master_transmit(data);
- 4d6:	8c 2f       	mov	r24, r28
- 4d8:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
+ 42a:	8c 2f       	mov	r24, r28
+ 42c:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
 	PORTB |= (1 << PB4);
- 4dc:	c4 9a       	sbi	0x18, 4	; 24
+ 430:	c4 9a       	sbi	0x18, 4	; 24
 }
- 4de:	df 91       	pop	r29
- 4e0:	cf 91       	pop	r28
- 4e2:	08 95       	ret
+ 432:	df 91       	pop	r29
+ 434:	cf 91       	pop	r28
+ 436:	08 95       	ret
 
-000004e4 <MCP_request_to_send>:
+00000438 <MCP_request_to_send>:
 }
 
 /* Instructs controller to begin message transmission for the selected buffers */
 void MCP_request_to_send(uint8_t buffer)
 {
 	PORTB &= ~(1 << PB4);
- 4e4:	c4 98       	cbi	0x18, 4	; 24
+ 438:	c4 98       	cbi	0x18, 4	; 24
 	SPI_master_transmit(buffer);
- 4e6:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
+ 43a:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
 	PORTB |= (1 << PB4);
- 4ea:	c4 9a       	sbi	0x18, 4	; 24
- 4ec:	08 95       	ret
+ 43e:	c4 9a       	sbi	0x18, 4	; 24
+ 440:	08 95       	ret
 
-000004ee <MCP_read_status>:
+00000442 <MCP_read_status>:
 }
 
 /* Returns some status bits for transmit and receive functions */
 uint8_t MCP_read_status(void)
 {
 	PORTB &= ~(1 << PB4);
- 4ee:	c4 98       	cbi	0x18, 4	; 24
+ 442:	c4 98       	cbi	0x18, 4	; 24
 	SPI_master_transmit(MCP_READ_STATUS);
- 4f0:	80 ea       	ldi	r24, 0xA0	; 160
- 4f2:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
+ 444:	80 ea       	ldi	r24, 0xA0	; 160
+ 446:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
 	SPI_master_transmit(0x00); // Unneccessary because of "repeat data out"?
- 4f6:	80 e0       	ldi	r24, 0x00	; 0
- 4f8:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
+ 44a:	80 e0       	ldi	r24, 0x00	; 0
+ 44c:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
 	char status = SPDR;
- 4fc:	8f b1       	in	r24, 0x0f	; 15
+ 450:	8f b1       	in	r24, 0x0f	; 15
 	PORTB |= (1 << PB4);
- 4fe:	c4 9a       	sbi	0x18, 4	; 24
+ 452:	c4 9a       	sbi	0x18, 4	; 24
 	return status;
 }
- 500:	08 95       	ret
+ 454:	08 95       	ret
 
-00000502 <MCP_modify_bit>:
+00000456 <MCP_modify_bit>:
 	MCP_modify_bit(MCP_CANCTRL, mask, mode);
 }
 
 /* Changes the value of the register bits specified by the mask */
 void MCP_modify_bit(uint8_t addr, uint8_t mask, uint8_t data)
 {
- 502:	1f 93       	push	r17
- 504:	cf 93       	push	r28
- 506:	df 93       	push	r29
- 508:	18 2f       	mov	r17, r24
- 50a:	d6 2f       	mov	r29, r22
- 50c:	c4 2f       	mov	r28, r20
+ 456:	1f 93       	push	r17
+ 458:	cf 93       	push	r28
+ 45a:	df 93       	push	r29
+ 45c:	18 2f       	mov	r17, r24
+ 45e:	d6 2f       	mov	r29, r22
+ 460:	c4 2f       	mov	r28, r20
 	PORTB &= ~(1 << PB4);
- 50e:	c4 98       	cbi	0x18, 4	; 24
+ 462:	c4 98       	cbi	0x18, 4	; 24
 	SPI_master_transmit(MCP_BITMOD);
- 510:	85 e0       	ldi	r24, 0x05	; 5
- 512:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
+ 464:	85 e0       	ldi	r24, 0x05	; 5
+ 466:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
 	SPI_master_transmit(addr);
- 516:	81 2f       	mov	r24, r17
- 518:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
+ 46a:	81 2f       	mov	r24, r17
+ 46c:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
 	SPI_master_transmit(mask);
- 51c:	8d 2f       	mov	r24, r29
- 51e:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
+ 470:	8d 2f       	mov	r24, r29
+ 472:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
 	SPI_master_transmit(data);
- 522:	8c 2f       	mov	r24, r28
- 524:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
+ 476:	8c 2f       	mov	r24, r28
+ 478:	0e 94 04 04 	call	0x808	; 0x808 <SPI_master_transmit>
 	PORTB |= (1 << PB4);
- 528:	c4 9a       	sbi	0x18, 4	; 24
- 52a:	df 91       	pop	r29
- 52c:	cf 91       	pop	r28
- 52e:	1f 91       	pop	r17
- 530:	08 95       	ret
+ 47c:	c4 9a       	sbi	0x18, 4	; 24
+ 47e:	df 91       	pop	r29
+ 480:	cf 91       	pop	r28
+ 482:	1f 91       	pop	r17
+ 484:	08 95       	ret
 
-00000532 <MCP_set_mode>:
+00000486 <MCP_set_mode>:
 			break;
 		default:
 			break;
 	}
 	
 	MCP_modify_bit(MCP_CANCTRL, mask, mode);
- 532:	48 2f       	mov	r20, r24
- 534:	60 ee       	ldi	r22, 0xE0	; 224
- 536:	8f e0       	ldi	r24, 0x0F	; 15
- 538:	0e 94 81 02 	call	0x502	; 0x502 <MCP_modify_bit>
- 53c:	08 95       	ret
+ 486:	48 2f       	mov	r20, r24
+ 488:	60 ee       	ldi	r22, 0xE0	; 224
+ 48a:	8f e0       	ldi	r24, 0x0F	; 15
+ 48c:	0e 94 2b 02 	call	0x456	; 0x456 <MCP_modify_bit>
+ 490:	08 95       	ret
 
-0000053e <MCP_init>:
+00000492 <MCP_init>:
 #include "MCP2515.h"
 #include "mcp.h"
 
 void MCP_init(void)
 {
 	SPI_master_init();
- 53e:	0e 94 ff 03 	call	0x7fe	; 0x7fe <SPI_master_init>
+ 492:	0e 94 ff 03 	call	0x7fe	; 0x7fe <SPI_master_init>
 	MCP_reset();
- 542:	0e 94 4a 02 	call	0x494	; 0x494 <MCP_reset>
+ 496:	0e 94 f4 01 	call	0x3e8	; 0x3e8 <MCP_reset>
 	
 	MCP_modify_bit(MCP_RXB0CTRL, 0b01100000, 0xFF); // Turns masks/filters off for RX0
- 546:	4f ef       	ldi	r20, 0xFF	; 255
- 548:	60 e6       	ldi	r22, 0x60	; 96
- 54a:	80 e6       	ldi	r24, 0x60	; 96
- 54c:	0e 94 81 02 	call	0x502	; 0x502 <MCP_modify_bit>
+ 49a:	4f ef       	ldi	r20, 0xFF	; 255
+ 49c:	60 e6       	ldi	r22, 0x60	; 96
+ 49e:	80 e6       	ldi	r24, 0x60	; 96
+ 4a0:	0e 94 2b 02 	call	0x456	; 0x456 <MCP_modify_bit>
 	MCP_modify_bit(MCP_RXB1CTRL, 0b01100000, 0xFF); // Turns masks/filters off for RX1
- 550:	4f ef       	ldi	r20, 0xFF	; 255
- 552:	60 e6       	ldi	r22, 0x60	; 96
- 554:	80 e7       	ldi	r24, 0x70	; 112
- 556:	0e 94 81 02 	call	0x502	; 0x502 <MCP_modify_bit>
+ 4a4:	4f ef       	ldi	r20, 0xFF	; 255
+ 4a6:	60 e6       	ldi	r22, 0x60	; 96
+ 4a8:	80 e7       	ldi	r24, 0x70	; 112
+ 4aa:	0e 94 2b 02 	call	0x456	; 0x456 <MCP_modify_bit>
 	//MCP_set_mode(MODE_LOOPBACK); // Sets loopback operation mode for testing
 	MCP_set_mode(MODE_NORMAL); // Sets normal operation mode
- 55a:	80 e0       	ldi	r24, 0x00	; 0
- 55c:	0e 94 99 02 	call	0x532	; 0x532 <MCP_set_mode>
- 560:	08 95       	ret
+ 4ae:	80 e0       	ldi	r24, 0x00	; 0
+ 4b0:	0e 94 43 02 	call	0x486	; 0x486 <MCP_set_mode>
+ 4b4:	08 95       	ret
+
+000004b6 <main>:
+
+
+int main(void)
+{
+	/* Needs to be set when using external memory */
+	MCUCR |= (1 << SRE);
+ 4b6:	85 b7       	in	r24, 0x35	; 53
+ 4b8:	80 68       	ori	r24, 0x80	; 128
+ 4ba:	85 bf       	out	0x35, r24	; 53
+
+	fdevopen(USART_transmit, USART_receive);
+ 4bc:	63 e1       	ldi	r22, 0x13	; 19
+ 4be:	74 e0       	ldi	r23, 0x04	; 4
+ 4c0:	8f e0       	ldi	r24, 0x0F	; 15
+ 4c2:	94 e0       	ldi	r25, 0x04	; 4
+ 4c4:	0e 94 3e 05 	call	0xa7c	; 0xa7c <fdevopen>
+	USART_init(MYUBBR);
+ 4c8:	8f e1       	ldi	r24, 0x1F	; 31
+ 4ca:	90 e0       	ldi	r25, 0x00	; 0
+ 4cc:	0e 94 08 04 	call	0x810	; 0x810 <USART_init>
+	OLED_init();
+ 4d0:	0e 94 e6 02 	call	0x5cc	; 0x5cc <OLED_init>
+	JOYSTICK_init();
+ 4d4:	0e 94 70 01 	call	0x2e0	; 0x2e0 <JOYSTICK_init>
+	CAN_init();
+ 4d8:	0e 94 3a 01 	call	0x274	; 0x274 <CAN_init>
+	
+	OLED_reset();
+ 4dc:	0e 94 d8 02 	call	0x5b0	; 0x5b0 <OLED_reset>
+	OLED_pos(2,20);
+ 4e0:	64 e1       	ldi	r22, 0x14	; 20
+ 4e2:	82 e0       	ldi	r24, 0x02	; 2
+ 4e4:	0e 94 cb 02 	call	0x596	; 0x596 <OLED_pos>
+	
+	menuNode *menu = OLED_generate_menu();
+ 4e8:	0e 94 7b 03 	call	0x6f6	; 0x6f6 <OLED_generate_menu>
+	OLED_print_menu(menu);
+ 4ec:	0e 94 bf 03 	call	0x77e	; 0x77e <OLED_print_menu>
+	Direction joydir = NEUTRAL;
+	uint8_t buttonPressed = 0;
+	
+	/* MCP TEST */
+	
+	uint8_t status = MCP_read(MCP_CANCTRL);
+ 4f0:	8f e0       	ldi	r24, 0x0F	; 15
+ 4f2:	0e 94 fa 01 	call	0x3f4	; 0x3f4 <MCP_read>
+	//printf("CANCTRL: %02x\n", status);
+	
+	uint8_t RXB0CTRL = MCP_read(MCP_RXB0CTRL);
+ 4f6:	80 e6       	ldi	r24, 0x60	; 96
+ 4f8:	0e 94 fa 01 	call	0x3f4	; 0x3f4 <MCP_read>
+	//printf("RXB0CTRL: %02x\n", RXB0CTRL);
+	
+	printf("\n");
+ 4fc:	8a e0       	ldi	r24, 0x0A	; 10
+ 4fe:	90 e0       	ldi	r25, 0x00	; 0
+ 500:	0e 94 89 05 	call	0xb12	; 0xb12 <putchar>
+	OLED_pos(2,20);
+	
+	menuNode *menu = OLED_generate_menu();
+	OLED_print_menu(menu);
+	
+	uint8_t currentRow = 1;
+ 504:	c1 e0       	ldi	r28, 0x01	; 1
+				currentRow -= 1;
+			}
+			
+		} else if (joydir == DOWN) {
+			if (currentRow == 7) {
+				currentRow = 1;
+ 506:	01 e0       	ldi	r16, 0x01	; 1
+		joydir = JOYSTICK_get_direction(position);
+		
+		lastRow = currentRow;
+		if (joydir == UP) {
+			if (currentRow == 1) {
+				currentRow = 7;
+ 508:	17 e0       	ldi	r17, 0x07	; 7
+	can_message.id = 2;
+	
+	while(1)
+	{	
+		//CAN_message_send(&can_message);
+		JOYSTICK_send_position();
+ 50a:	0e 94 c0 01 	call	0x380	; 0x380 <JOYSTICK_send_position>
+ 50e:	2f ef       	ldi	r18, 0xFF	; 255
+ 510:	8f e7       	ldi	r24, 0x7F	; 127
+ 512:	97 e0       	ldi	r25, 0x07	; 7
+ 514:	21 50       	subi	r18, 0x01	; 1
+ 516:	80 40       	sbci	r24, 0x00	; 0
+ 518:	90 40       	sbci	r25, 0x00	; 0
+ 51a:	e1 f7       	brne	.-8      	; 0x514 <__stack+0x15>
+ 51c:	00 c0       	rjmp	.+0      	; 0x51e <__stack+0x1f>
+ 51e:	00 00       	nop
+		
+		/* CAN test end */
+		_delay_ms(500);
+		
+		/* Create seperate function for this */
+		position_t position = JOYSTICK_get_position();
+ 520:	0e 94 75 01 	call	0x2ea	; 0x2ea <JOYSTICK_get_position>
+		joydir = JOYSTICK_get_direction(position);
+ 524:	0e 94 83 01 	call	0x306	; 0x306 <JOYSTICK_get_direction>
+		
+		lastRow = currentRow;
+		if (joydir == UP) {
+ 528:	83 30       	cpi	r24, 0x03	; 3
+ 52a:	29 f4       	brne	.+10     	; 0x536 <__stack+0x37>
+			if (currentRow == 1) {
+ 52c:	c1 30       	cpi	r28, 0x01	; 1
+ 52e:	51 f0       	breq	.+20     	; 0x544 <__stack+0x45>
+				currentRow = 7;
+			} else {
+				currentRow -= 1;
+ 530:	df ef       	ldi	r29, 0xFF	; 255
+ 532:	dc 0f       	add	r29, r28
+ 534:	0c c0       	rjmp	.+24     	; 0x54e <__stack+0x4f>
+			}
+			
+		} else if (joydir == DOWN) {
+ 536:	84 30       	cpi	r24, 0x04	; 4
+ 538:	39 f4       	brne	.+14     	; 0x548 <__stack+0x49>
+			if (currentRow == 7) {
+ 53a:	c7 30       	cpi	r28, 0x07	; 7
+ 53c:	39 f0       	breq	.+14     	; 0x54c <__stack+0x4d>
+				currentRow = 1;
+			} else {
+				currentRow += 1;
+ 53e:	d1 e0       	ldi	r29, 0x01	; 1
+ 540:	dc 0f       	add	r29, r28
+ 542:	05 c0       	rjmp	.+10     	; 0x54e <__stack+0x4f>
+		joydir = JOYSTICK_get_direction(position);
+		
+		lastRow = currentRow;
+		if (joydir == UP) {
+			if (currentRow == 1) {
+				currentRow = 7;
+ 544:	d1 2f       	mov	r29, r17
+ 546:	03 c0       	rjmp	.+6      	; 0x54e <__stack+0x4f>
+ 548:	dc 2f       	mov	r29, r28
+ 54a:	01 c0       	rjmp	.+2      	; 0x54e <__stack+0x4f>
+				currentRow -= 1;
+			}
+			
+		} else if (joydir == DOWN) {
+			if (currentRow == 7) {
+				currentRow = 1;
+ 54c:	d0 2f       	mov	r29, r16
+			} else {
+				currentRow += 1;
+			}
+		}
+		
+		OLED_move_arrow(currentRow, 20, lastRow, 20);
+ 54e:	24 e1       	ldi	r18, 0x14	; 20
+ 550:	4c 2f       	mov	r20, r28
+ 552:	64 e1       	ldi	r22, 0x14	; 20
+ 554:	8d 2f       	mov	r24, r29
+ 556:	0e 94 56 03 	call	0x6ac	; 0x6ac <OLED_move_arrow>
+		buttonPressed = JOYSTICK_read_button();
+ 55a:	0e 94 b9 01 	call	0x372	; 0x372 <JOYSTICK_read_button>
+		joydata_received = CAN_message_receive();
+		for (uint8_t i = 0; i < received_message.length; i++) {
+			printf("Received: %02x\n", received_message.data[i]);
+		}
+		*/
+	}
+ 55e:	cd 2f       	mov	r28, r29
+ 560:	d4 cf       	rjmp	.-88     	; 0x50a <__stack+0xb>
 
 00000562 <OLED_goto_line>:
 }

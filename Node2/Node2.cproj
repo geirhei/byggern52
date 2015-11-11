@@ -123,25 +123,25 @@
     <Compile Include="MCP2515.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Node2.c">
+    <Compile Include="node_2.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="servo_controller.c">
+    <Compile Include="servo.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="servo_controller.h">
+    <Compile Include="servo.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="spi.c">
+    <Compile Include="spi_2.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="spi.h">
+    <Compile Include="spi_2.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="usart.c">
+    <Compile Include="usart_2.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="usart.h">
+    <Compile Include="usart_2.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

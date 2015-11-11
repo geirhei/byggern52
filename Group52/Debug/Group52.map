@@ -43,13 +43,13 @@ c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-t
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(rand.o)
                               sram.o (rand)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(fdevopen.o)
-                              main.o (fdevopen)
+                              node_1.o (fdevopen)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(iob.o)
                               c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(fdevopen.o) (__iob)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(printf.o)
                               can.o (printf)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(putchar.o)
-                              main.o (putchar)
+                              node_1.o (putchar)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(puts.o)
                               sram.o (puts)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
@@ -119,10 +119,6 @@ Discarded input sections
                 0x00000000        0x2 joystick.o
  .text.toPositionPercent
                 0x00000000       0x36 joystick.o
- .text          0x00000000        0x0 main.o
- .data          0x00000000        0x0 main.o
- .bss           0x00000000        0x0 main.o
- .text.blink    0x00000000       0x1c main.o
  .text          0x00000000        0x0 mcp.o
  .data          0x00000000        0x0 mcp.o
  .bss           0x00000000        0x0 mcp.o
@@ -132,6 +128,10 @@ Discarded input sections
                 0x00000000       0x16 mcp.o
  .text.MCP_rx_status
                 0x00000000        0xe mcp.o
+ .text          0x00000000        0x0 node_1.o
+ .data          0x00000000        0x0 node_1.o
+ .bss           0x00000000        0x0 node_1.o
+ .text.blink    0x00000000       0x1c node_1.o
  .text          0x00000000        0x0 oled.o
  .data          0x00000000        0x0 oled.o
  .bss           0x00000000        0x0 oled.o
@@ -515,8 +515,8 @@ LOAD adc.o
 LOAD can.o
 LOAD font.o
 LOAD joystick.o
-LOAD main.o
 LOAD mcp.o
+LOAD node_1.o
 LOAD oled.o
 LOAD spi.o
 LOAD sram.o
@@ -737,32 +737,32 @@ END GROUP
  .text.JOYSTICK_send_position
                 0x00000380       0x68 joystick.o
                 0x00000380                JOYSTICK_send_position
- .text.main     0x000003e8       0xac main.o
-                0x000003e8                main
  .text.MCP_reset
-                0x00000494        0xc mcp.o
-                0x00000494                MCP_reset
+                0x000003e8        0xc mcp.o
+                0x000003e8                MCP_reset
  .text.MCP_read
-                0x000004a0       0x20 mcp.o
-                0x000004a0                MCP_read
+                0x000003f4       0x20 mcp.o
+                0x000003f4                MCP_read
  .text.MCP_write
-                0x000004c0       0x24 mcp.o
-                0x000004c0                MCP_write
+                0x00000414       0x24 mcp.o
+                0x00000414                MCP_write
  .text.MCP_request_to_send
-                0x000004e4        0xa mcp.o
-                0x000004e4                MCP_request_to_send
+                0x00000438        0xa mcp.o
+                0x00000438                MCP_request_to_send
  .text.MCP_read_status
-                0x000004ee       0x14 mcp.o
-                0x000004ee                MCP_read_status
+                0x00000442       0x14 mcp.o
+                0x00000442                MCP_read_status
  .text.MCP_modify_bit
-                0x00000502       0x30 mcp.o
-                0x00000502                MCP_modify_bit
+                0x00000456       0x30 mcp.o
+                0x00000456                MCP_modify_bit
  .text.MCP_set_mode
-                0x00000532        0xc mcp.o
-                0x00000532                MCP_set_mode
+                0x00000486        0xc mcp.o
+                0x00000486                MCP_set_mode
  .text.MCP_init
-                0x0000053e       0x24 mcp.o
-                0x0000053e                MCP_init
+                0x00000492       0x24 mcp.o
+                0x00000492                MCP_init
+ .text.main     0x000004b6       0xac node_1.o
+                0x000004b6                main
  .text.OLED_goto_line
                 0x00000562       0x10 oled.o
                 0x00000562                OLED_goto_line
@@ -941,8 +941,8 @@ END GROUP
                                  0x31 (size before relaxing)
  .comment       0x00000000       0x31 can.o
  .comment       0x00000000       0x31 joystick.o
- .comment       0x00000000       0x31 main.o
  .comment       0x00000000       0x31 mcp.o
+ .comment       0x00000000       0x31 node_1.o
  .comment       0x00000000       0x31 oled.o
  .comment       0x00000000       0x31 spi.o
  .comment       0x00000000       0x31 usart.o
@@ -977,9 +977,9 @@ END GROUP
  .debug_aranges
                 0x00000050       0x58 joystick.o
  .debug_aranges
-                0x000000a8       0x28 main.o
+                0x000000a8       0x70 mcp.o
  .debug_aranges
-                0x000000d0       0x70 mcp.o
+                0x00000118       0x28 node_1.o
  .debug_aranges
                 0x00000140       0x98 oled.o
  .debug_aranges
@@ -995,8 +995,8 @@ END GROUP
  .debug_info    0x00000000      0x168 adc.o
  .debug_info    0x00000168      0x37d can.o
  .debug_info    0x000004e5      0x471 joystick.o
- .debug_info    0x00000956      0x651 main.o
- .debug_info    0x00000fa7      0x48e mcp.o
+ .debug_info    0x00000956      0x48e mcp.o
+ .debug_info    0x00000de4      0x651 node_1.o
  .debug_info    0x00001435     0x10fa oled.o
  .debug_info    0x0000252f       0xd3 spi.o
  .debug_info    0x00002602      0x107 usart.o
@@ -1006,35 +1006,35 @@ END GROUP
  .debug_abbrev  0x00000000      0x108 adc.o
  .debug_abbrev  0x00000108      0x1a6 can.o
  .debug_abbrev  0x000002ae      0x283 joystick.o
- .debug_abbrev  0x00000531      0x267 main.o
- .debug_abbrev  0x00000798      0x13b mcp.o
+ .debug_abbrev  0x00000531      0x13b mcp.o
+ .debug_abbrev  0x0000066c      0x267 node_1.o
  .debug_abbrev  0x000008d3      0x309 oled.o
  .debug_abbrev  0x00000bdc       0xa3 spi.o
  .debug_abbrev  0x00000c7f       0xbb usart.o
 
-.debug_line     0x00000000      0xc1a
+.debug_line     0x00000000      0xc1d
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x13b adc.o
  .debug_line    0x0000013b      0x114 can.o
- .debug_line    0x0000024f      0x1f4 joystick.o
- .debug_line    0x00000443      0x1b9 main.o
- .debug_line    0x000005fc      0x185 mcp.o
- .debug_line    0x00000781      0x2d7 oled.o
- .debug_line    0x00000a58       0xd1 spi.o
- .debug_line    0x00000b29       0xf1 usart.o
+ .debug_line    0x0000024f      0x1f5 joystick.o
+ .debug_line    0x00000444      0x185 mcp.o
+ .debug_line    0x000005c9      0x1bb node_1.o
+ .debug_line    0x00000784      0x2d7 oled.o
+ .debug_line    0x00000a5b       0xd1 spi.o
+ .debug_line    0x00000b2c       0xf1 usart.o
 
 .debug_frame    0x00000000      0x4c8
  *(.debug_frame)
  .debug_frame   0x00000000       0x24 adc.o
  .debug_frame   0x00000024       0x94 can.o
  .debug_frame   0x000000b8       0xc4 joystick.o
- .debug_frame   0x0000017c       0x34 main.o
- .debug_frame   0x000001b0       0xf0 mcp.o
+ .debug_frame   0x0000017c       0xf0 mcp.o
+ .debug_frame   0x0000026c       0x34 node_1.o
  .debug_frame   0x000002a0      0x180 oled.o
  .debug_frame   0x00000420       0x44 spi.o
  .debug_frame   0x00000464       0x64 usart.o
 
-.debug_str      0x00000000      0x6dd
+.debug_str      0x00000000      0x6df
  *(.debug_str)
  .debug_str     0x00000000      0x192 adc.o
                                 0x1cb (size before relaxing)
@@ -1042,15 +1042,15 @@ END GROUP
                                 0x20e (size before relaxing)
  .debug_str     0x0000024d      0x146 joystick.o
                                 0x34a (size before relaxing)
- .debug_str     0x00000393      0x134 main.o
-                                0x3b0 (size before relaxing)
- .debug_str     0x000004c7       0x84 mcp.o
+ .debug_str     0x00000393       0x84 mcp.o
                                 0x223 (size before relaxing)
- .debug_str     0x0000054b      0x130 oled.o
+ .debug_str     0x00000417      0x136 node_1.o
+                                0x3b2 (size before relaxing)
+ .debug_str     0x0000054d      0x130 oled.o
                                 0x3a8 (size before relaxing)
- .debug_str     0x0000067b       0x21 spi.o
+ .debug_str     0x0000067d       0x21 spi.o
                                 0x17d (size before relaxing)
- .debug_str     0x0000069c       0x41 usart.o
+ .debug_str     0x0000069e       0x41 usart.o
                                 0x184 (size before relaxing)
 
 .debug_loc      0x00000000      0xfe7
@@ -1058,8 +1058,8 @@ END GROUP
  .debug_loc     0x00000000       0x6c adc.o
  .debug_loc     0x0000006c      0x288 can.o
  .debug_loc     0x000002f4      0x296 joystick.o
- .debug_loc     0x0000058a       0xc0 main.o
- .debug_loc     0x0000064a      0x272 mcp.o
+ .debug_loc     0x0000058a      0x272 mcp.o
+ .debug_loc     0x000007fc       0xc0 node_1.o
  .debug_loc     0x000008bc      0x6bd oled.o
  .debug_loc     0x00000f79       0x6e usart.o
 
@@ -1086,8 +1086,8 @@ END GROUP
  .debug_ranges  0x00000000       0x10 adc.o
  .debug_ranges  0x00000010       0x20 can.o
  .debug_ranges  0x00000030       0x48 joystick.o
- .debug_ranges  0x00000078       0x18 main.o
- .debug_ranges  0x00000090       0x60 mcp.o
+ .debug_ranges  0x00000078       0x60 mcp.o
+ .debug_ranges  0x000000d8       0x18 node_1.o
  .debug_ranges  0x000000f0       0xa0 oled.o
  .debug_ranges  0x00000190       0x20 spi.o
  .debug_ranges  0x000001b0       0x28 usart.o

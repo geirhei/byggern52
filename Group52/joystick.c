@@ -38,25 +38,6 @@ position_t JOYSTICK_get_position(void)
 	return position;
 }
 
-/*
-PositionsType JOYSTICK_get_position(void)
-{
-	int16_t yValue = (int16_t) adc_read(JOYAXIS1);
-	int16_t xValue = (int16_t) adc_read(JOYAXIS2);
-	
-	printf("%i\n", yValue);
-	
-	int16_t xPosition = toPositionPercent(xValue);
-	int16_t yPosition = toPositionPercent(yValue);
-	
-	PositionsType pos;
-	pos.x = xPosition;
-	pos.y = yPosition;
-	
-	return pos;
-}
-*/
-
 Direction JOYSTICK_get_direction(position_t pos)
 {
 	const uint8_t THRESHOLD = 64;
@@ -78,34 +59,6 @@ Direction JOYSTICK_get_direction(position_t pos)
 	return NEUTRAL;
 }
 
-/*
-DirectionType JOYSTICK_get_direction(void)
-{
-	PositionsType pos = JOYSTICK_get_position();
-	int8_t THRESHOLD = 25;
-	
-	if (pos.y < THRESHOLD && pos.y > -THRESHOLD) {
-		
-		if (pos.x < -THRESHOLD) {
-			return LEFT;
-		} else if (pos.x > THRESHOLD) {
-			return RIGHT;
-		}
-		
-	} else if (pos.x < THRESHOLD && pos.x > -THRESHOLD) {
-		
-		if (pos.y < -THRESHOLD) {
-			return DOWN;
-		} else if (pos.y > THRESHOLD) {
-			return UP;
-		}
-		
-	}
-	
-	return NEUTRAL;
-}
-*/
-
 int16_t toPositionPercent(int16_t value)
 {
 	value -= 127;
@@ -125,42 +78,15 @@ position_t SLIDERS_get_positions(void)
 	return pos;
 }
 
-/*
-PositionsType SLIDERS_get_positions(void)
-{
-	int16_t lValue = adc_read(LSLIDER);
-	int16_t rValue = adc_read(RSLIDER);
-	_delay_ms(50);
-	
-	//printf("%i\n", lValue);
-	//printf("%i\n", rValue);
-	
-	int16_t lPosition = toPositionPercent(lValue);
-	int16_t rPosition = toPositionPercent(rValue);
-	
-	PositionsType pos;
-	pos.l = lPosition;
-	pos.r = rPosition;
-	
-	return pos;
-}
-*/
-
 uint8_t JOYSTICK_read_button(void)
 {
 	return (PINB & (1 << PB2)) == 0;
 }
 
-/* Sends a message containing position values in percentage for joystick and sliders, and direction
+/* Sends a message containing position values 0-255 for joystick and sliders, and direction
 	over the CAN bus.*/
 void JOYSTICK_send_position(void)
 {
-	/*
-	DirectionType joydir = JOYSTICK_get_direction();
-	PositionsType joypos = JOYSTICK_get_position();
-	PositionsType sliderpos = SLIDERS_get_positions();
-	*/
-	
 	position_t joypos = JOYSTICK_get_position();
 	Direction joydir = JOYSTICK_get_direction(joypos);
 	position_t sliderpos = SLIDERS_get_positions();

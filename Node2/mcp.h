@@ -9,7 +9,7 @@
 #define MCP_H_
 
 	#include <avr/io.h>
-	#include "spi.h"
+	#include "spi_2.h"
 
 	void MCP_init(void);
 	void MCP_reset(void);

@@ -12,7 +12,7 @@
 #include <util/delay.h>
 #include <stdlib.h>
 
-#include "usart.h"
+#include "usart_2.h"
 #include "can.h"
 
 int main(void)

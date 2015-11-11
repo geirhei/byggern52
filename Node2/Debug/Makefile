@@ -39,14 +39,10 @@ SUBDIRS :=
 C_SRCS +=  \
 ../can.c \
 ../mcp.c \
-<<<<<<< HEAD
 ../node_2.c \
-../servo_controller.c \
-=======
-../Node2.c \
->>>>>>> parent of 2aba554... Arduino libraries imported
-../spi.c \
-../usart.c
+../servo.c \
+../spi_2.c \
+../usart_2.c
 
 
 PREPROCESSING_SRCS += 
@@ -58,50 +54,34 @@ ASM_SRCS +=
 OBJS +=  \
 can.o \
 mcp.o \
-<<<<<<< HEAD
 node_2.o \
-servo_controller.o \
-=======
-Node2.o \
->>>>>>> parent of 2aba554... Arduino libraries imported
-spi.o \
-usart.o
+servo.o \
+spi_2.o \
+usart_2.o
 
 OBJS_AS_ARGS +=  \
 can.o \
 mcp.o \
-<<<<<<< HEAD
 node_2.o \
-servo_controller.o \
-=======
-Node2.o \
->>>>>>> parent of 2aba554... Arduino libraries imported
-spi.o \
-usart.o
+servo.o \
+spi_2.o \
+usart_2.o
 
 C_DEPS +=  \
 can.d \
 mcp.d \
-<<<<<<< HEAD
 node_2.d \
-servo_controller.d \
-=======
-Node2.d \
->>>>>>> parent of 2aba554... Arduino libraries imported
-spi.d \
-usart.d
+servo.d \
+spi_2.d \
+usart_2.d
 
 C_DEPS_AS_ARGS +=  \
 can.d \
 mcp.d \
-<<<<<<< HEAD
 node_2.d \
-servo_controller.d \
-=======
-Node2.d \
->>>>>>> parent of 2aba554... Arduino libraries imported
-spi.d \
-usart.d
+servo.d \
+spi_2.d \
+usart_2.d
 
 OUTPUT_FILE_PATH +=Node2.elf
 

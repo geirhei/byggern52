@@ -41,8 +41,8 @@ C_SRCS +=  \
 ../can.c \
 ../font.c \
 ../joystick.c \
-../main.c \
 ../mcp.c \
+../node_1.c \
 ../oled.c \
 ../spi.c \
 ../sram.c \
@@ -60,8 +60,8 @@ adc.o \
 can.o \
 font.o \
 joystick.o \
-main.o \
 mcp.o \
+node_1.o \
 oled.o \
 spi.o \
 sram.o \
@@ -72,8 +72,8 @@ adc.o \
 can.o \
 font.o \
 joystick.o \
-main.o \
 mcp.o \
+node_1.o \
 oled.o \
 spi.o \
 sram.o \
@@ -84,8 +84,8 @@ adc.d \
 can.d \
 font.d \
 joystick.d \
-main.d \
 mcp.d \
+node_1.d \
 oled.d \
 spi.d \
 sram.d \
@@ -96,8 +96,8 @@ adc.d \
 can.d \
 font.d \
 joystick.d \
-main.d \
 mcp.d \
+node_1.d \
 oled.d \
 spi.d \
 sram.d \
