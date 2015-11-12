@@ -43,7 +43,7 @@ int main(void)
 			//printf("%s\n", "No message in buffer");
 		}
 		
-		_delay_ms(50);
+		//_delay_ms(50);
 	}
 	
 	return 0;

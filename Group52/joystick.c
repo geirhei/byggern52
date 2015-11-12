@@ -101,6 +101,6 @@ void JOYSTICK_send_position(void)
 	can_message.length = 6;
 	can_message.id = 1;
 	
-	printf("msg_type: %i\n", can_message.data[0]);
+	//printf("msg_type: %i\n", can_message.data[0]);
 	CAN_message_send(&can_message);
 }

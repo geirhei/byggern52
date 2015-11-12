@@ -39,12 +39,11 @@ void SERVO_write(position_t pos)
 	const uint32_t max = 525;
 	const uint32_t delta = max-min;
 	uint32_t y = (uint32_t) pos.y;
-	printf("Y casted: %d\n", y);
 	uint32_t ref = y * delta/255;
 	uint32_t new_pos = min + ref;
 	
 	// Update compare register
-	printf("new_pos: %d\n", new_pos);
+	//printf("new_pos: %d\n", new_pos);
 	OCR3A = new_pos;
 }
 
