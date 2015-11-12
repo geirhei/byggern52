@@ -32,7 +32,7 @@ int main(void)
 	/* Needs to be set when using external memory */
 	MCUCR |= (1 << SRE);
 
-	fdevopen(USART_transmit, USART_receive);
+	fdevopen(USART_transmit, USART_receive); // Sets printf to serial port
 	USART_init(MYUBBR);
 	OLED_init();
 	JOYSTICK_init();

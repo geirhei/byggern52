@@ -904,7 +904,7 @@ int main(void)
  4b8:	80 68       	ori	r24, 0x80	; 128
  4ba:	85 bf       	out	0x35, r24	; 53
 
-	fdevopen(USART_transmit, USART_receive);
+	fdevopen(USART_transmit, USART_receive); // Sets printf to serial port
  4bc:	63 e1       	ldi	r22, 0x13	; 19
  4be:	74 e0       	ldi	r23, 0x04	; 4
  4c0:	8f e0       	ldi	r24, 0x0F	; 15

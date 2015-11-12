@@ -13,7 +13,8 @@ typedef struct {
 	uint8_t x, y;
 } position_t;
 
-void SERVO_init(void);
+void timer1_init(void);
+ISR(TIMER1_COMPA_vect);
 
 
 

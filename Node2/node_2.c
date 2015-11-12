@@ -8,15 +8,23 @@
 #define F_CPU 16000000
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <stdio.h>
 #include <util/delay.h>
 #include <stdlib.h>
 
 #include "usart_2.h"
 #include "can.h"
+#include "servo.h"
+
+
 
 int main(void)
 {
+	sei(); // Enable global interrupts
+	
+	timer1_init(); // initialize timer
+	
 	
 	
 	uint8_t status, msg_arrived;
