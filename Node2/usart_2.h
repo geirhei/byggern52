@@ -10,7 +10,7 @@
 #define USART_H_
 
 #define BAUD 9600
-#define MYUBRR F_CPU/16/BAUD-1
+#define MYUBBR F_CPU/16/BAUD-1
 
 
 void USART_init(unsigned int ubrr);

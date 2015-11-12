@@ -23,9 +23,8 @@ void timer1_init(void)
 	// initialize counter
 	TCNT1 = 0;
 	
-	// initialize compare value (servo to middle, 206)
-	//OCR1A = 0x00CE;
-	OCR1A = 0x020D; //max
+	// initialize compare value (servo to middle, 0x0177)
+	OCR1A = 0x0177; //middle
 	
 	// Enable compare interrupt
 	TIMSK1 |= (1 << OCIE1A);
@@ -34,26 +33,17 @@ void timer1_init(void)
 	DDRB = (1 << PB5);
 }
 
-/*
-void timer1_init(void)
-{
-	uint8_t duty_cyc;
-	
-	// Set PWM port as output 
-	DDRB = (1 << PB5);
-	
-	// f_PWM = F_CPU / (1250 * 256) CORRECT?
-	TCCR1A = 0b10001010; //Set TIMER1 register to Fast PWM 8 bit, Clear OCRA0 on compare match, SET on top
-	TCNT1 = 0; // Reset TCNT0
-	OCR1A = 0; // Initialize output compare register
-	
-}
-*/
-
 void SERVO_write(position_t pos)
 {
+	const uint8_t min = 225;
+	const uint8_t max = 525;
+	const uint8_t delta = max-min;
+	uint8_t ref = pos.y * delta/255;
+	uint8_t new_pos = min + ref;
+	
 	// Update compare register
-	OCR1A = 0x0600;
+	//printf("new_pos: %d\n", new_pos);
+	OCR1A = new_pos;
 }
 
 /* Interrupt handler for TIMER1 compare */

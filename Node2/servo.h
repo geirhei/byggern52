@@ -14,6 +14,7 @@ typedef struct {
 } position_t;
 
 void timer1_init(void);
+void SERVO_write(position_t pos);
 ISR(TIMER1_COMPA_vect);
 
 

@@ -24,8 +24,13 @@ int main(void)
 	sei(); // Enable global interrupts
 	
 	timer1_init(); // initialize timer
+	fdevopen(USART_transmit, USART_receive); // Sets printf to serial port
+	USART_init(MYUBBR);
+	//CAN_init();
 	
-	
+	position_t pos_test;
+	pos_test.y = 100;
+	//SERVO_write(pos_test);
 	
 	uint8_t status, msg_arrived;
 	can_message_t received_message;
@@ -43,9 +48,11 @@ int main(void)
 	
 	while(1) {	
 		
+		
 		/* CAN test begin */
 		//CAN_message_send(&can_message);
 		
+		/*
 		status = MCP_read_status();
 		printf("Status: %02x\n", status);
 		msg_arrived = (status & 1);
@@ -65,6 +72,7 @@ int main(void)
 				printf("Received: %02x\n", received_message.data[i]);
 			}
 			*/
+			/*
 		} else {
 			printf("%s\n", "No message in buffer");
 		}
@@ -73,4 +81,6 @@ int main(void)
 		/* CAN test end */
 		_delay_ms(500);
 	}
+	
+	return 0;
 }
