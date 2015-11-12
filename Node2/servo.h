@@ -13,6 +13,7 @@ typedef struct {
 	uint8_t x, y;
 } position_t;
 
+void SERVO_init(void);
 void timer1_init(void);
 void SERVO_write(position_t pos);
 ISR(TIMER1_COMPA_vect);

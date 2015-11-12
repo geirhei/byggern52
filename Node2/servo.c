@@ -9,6 +9,11 @@
 #include <avr/interrupt.h>
 #include "servo.h"
 
+void SERVO_init(void)
+{
+	timer1_init();
+}
+
 void timer1_init(void)
 {
 	// Set up timer in Fast PWM mode 14

@@ -59,8 +59,7 @@ int main(void)
 	
 	while(1)
 	{	
-		//CAN_message_send(&can_message);
-		JOYSTICK_send_position();
+		JOYSTICK_send_position(); // Sends current position values over CAN
 		
 		
 		/* Create seperate function for this */

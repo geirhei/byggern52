@@ -13,17 +13,16 @@
 #include <util/delay.h>
 #include <stdlib.h>
 
+#include "servo.h"
 #include "usart_2.h"
 #include "can.h"
-#include "servo.h"
-
 
 
 int main(void)
 {
 	sei(); // Enable global interrupts
 	
-	timer1_init(); // initialize timer
+	SERVO_init(); // initialize timer
 	fdevopen(USART_transmit, USART_receive); // Sets printf to serial port
 	USART_init(MYUBBR);
 	CAN_init();
