@@ -61,3 +61,25 @@ can_message_t CAN_message_receive(void)
 	
 	return message;
 }
+
+/* Processes a received CAN-message */
+void CAN_message_handle(can_message_t msg)
+{
+	printf("Message handle entered\n");
+	uint8_t msg_type = msg.data[0];
+	printf("msg_type: %i\n", msg_type);
+	position_t received_pos;
+	switch (msg_type) {
+		case 'j':
+			printf("Case 'j' entered\n");
+			received_pos.x = msg.data[2];
+			received_pos.y = msg.data[3];
+			printf("received_pos.x: %d\n", received_pos.x);
+			printf("received_pos.y: %d\n", received_pos.y);
+			
+			SERVO_write(received_pos);
+			break;
+		default:
+			break;
+	}
+}

@@ -11,6 +11,7 @@
 
 #include "MCP2515.h"
 #include "mcp.h"
+#include "servo.h"
 
 typedef struct {
 	unsigned int id;
@@ -21,6 +22,7 @@ typedef struct {
 void CAN_init(void);
 void CAN_message_send(can_message_t* msg);
 can_message_t CAN_message_receive(void);
+void CAN_message_handle(can_message_t msg);
 
 
 

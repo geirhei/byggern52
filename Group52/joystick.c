@@ -92,7 +92,7 @@ void JOYSTICK_send_position(void)
 	position_t sliderpos = SLIDERS_get_positions();
 	
 	can_message_t can_message;
-	can_message.data[0] = "j";
+	can_message.data[0] = 'j';
 	can_message.data[1] = joydir;
 	can_message.data[2] = joypos.x;
 	can_message.data[3] = joypos.y;
@@ -101,6 +101,6 @@ void JOYSTICK_send_position(void)
 	can_message.length = 6;
 	can_message.id = 1;
 	
-	
+	printf("msg_type: %i\n", can_message.data[0]);
 	CAN_message_send(&can_message);
 }

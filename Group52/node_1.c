@@ -101,8 +101,6 @@ int main(void)
 		}
 		*/
 		
-		/* CAN test end */
-		_delay_ms(500);
 		
 		/* Create seperate function for this */
 		position_t position = JOYSTICK_get_position();
@@ -131,12 +129,7 @@ int main(void)
 			menu = menu->children[currentRow];
 		}
 		
-		/*
-		joydata_received = CAN_message_receive();
-		for (uint8_t i = 0; i < received_message.length; i++) {
-			printf("Received: %02x\n", received_message.data[i]);
-		}
-		*/
+		_delay_ms(50);
 	}
 	
 	return 0;
