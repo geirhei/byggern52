@@ -17,7 +17,7 @@
 #include "usart_2.h"
 #include "can.h"
 #include "ir.h"
-#include "TWI_Master.h"
+#include "motor.h"
 
 
 int main(void)
@@ -29,19 +29,17 @@ int main(void)
 	USART_init(MYUBBR);
 	CAN_init();
 	IR_init();
-	TWI_Master_Initialise();
+	MOTOR_init();
 	
 	uint8_t status, msg_arrived;
 	can_message_t received_message;
-	
-	uint8_t ir_res = IR_read();
-	printf("%d\n", ir_res);
+	uint8_t ir_test = IR_read();
 	
 	while(1) {
-		
-		ir_res = IR_read();
-		printf("%d\n", ir_res);
-		
+
+		ir_test = IR_read();
+		printf("%d\n", ir_test);
+
 		status = MCP_read_status();
 		//printf("Status: %02x\n", status);
 		msg_arrived = (status & 1);
@@ -52,7 +50,7 @@ int main(void)
 			//printf("%s\n", "No message in buffer");
 		}
 		
-		//_delay_ms(50);
+		//_delay_ms(100);
 	}
 	
 	return 0;

@@ -39,8 +39,10 @@ SUBDIRS :=
 C_SRCS +=  \
 ../adc_2.c \
 ../can.c \
+../controller.c \
 ../ir.c \
 ../mcp.c \
+../motor.c \
 ../node_2.c \
 ../servo.c \
 ../spi_2.c \
@@ -57,8 +59,10 @@ ASM_SRCS +=
 OBJS +=  \
 adc_2.o \
 can.o \
+controller.o \
 ir.o \
 mcp.o \
+motor.o \
 node_2.o \
 servo.o \
 spi_2.o \
@@ -68,8 +72,10 @@ usart_2.o
 OBJS_AS_ARGS +=  \
 adc_2.o \
 can.o \
+controller.o \
 ir.o \
 mcp.o \
+motor.o \
 node_2.o \
 servo.o \
 spi_2.o \
@@ -79,8 +85,10 @@ usart_2.o
 C_DEPS +=  \
 adc_2.d \
 can.d \
+controller.d \
 ir.d \
 mcp.d \
+motor.d \
 node_2.d \
 servo.d \
 spi_2.d \
@@ -90,8 +98,10 @@ usart_2.d
 C_DEPS_AS_ARGS +=  \
 adc_2.d \
 can.d \
+controller.d \
 ir.d \
 mcp.d \
+motor.d \
 node_2.d \
 servo.d \
 spi_2.d \
@@ -112,6 +122,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 

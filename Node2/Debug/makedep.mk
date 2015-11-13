@@ -6,9 +6,13 @@ adc_2.c
 
 can.c
 
+controller.c
+
 ir.c
 
 mcp.c
+
+motor.c
 
 node_2.c
 

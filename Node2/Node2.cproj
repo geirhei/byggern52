@@ -120,6 +120,12 @@
     <Compile Include="can.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="controller.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="controller.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ir.c">
       <SubType>compile</SubType>
     </Compile>
@@ -133,6 +139,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="MCP2515.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="motor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="motor.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="node_2.c">

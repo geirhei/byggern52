@@ -311,32 +311,32 @@ uint8_t adc_read(DeviceType device){
      23c:	69 f0       	breq	.+26     	; 0x258 <adc_read+0x2e>
      23e:	0f c0       	rjmp	.+30     	; 0x25e <adc_read+0x34>
 		case JOYAXIS1:
-		/* Select CH1 */
-		adc[0] = 0b00000100;
+			/* Select CH1 */
+			adc[0] = 0b00000100;
      240:	84 e0       	ldi	r24, 0x04	; 4
      242:	80 93 00 14 	sts	0x1400, r24
-		break;
+			break;
      246:	0b c0       	rjmp	.+22     	; 0x25e <adc_read+0x34>
 		
 		case JOYAXIS2:
-		/* Select CH2 */
-		adc[0] = 0b00000101;
+			/* Select CH2 */
+			adc[0] = 0b00000101;
      248:	85 e0       	ldi	r24, 0x05	; 5
      24a:	80 93 00 14 	sts	0x1400, r24
-		break;
+			break;
      24e:	07 c0       	rjmp	.+14     	; 0x25e <adc_read+0x34>
 		
 		case LSLIDER:
-		/* Select CH3 */
-		adc[0] = 0b00000110;
+			/* Select CH3 */
+			adc[0] = 0b00000110;
      250:	86 e0       	ldi	r24, 0x06	; 6
      252:	80 93 00 14 	sts	0x1400, r24
-		break;
+			break;
      256:	03 c0       	rjmp	.+6      	; 0x25e <adc_read+0x34>
 		
 		case RSLIDER:
-		/* Select CH4 */
-		adc[0] = 0b00000111;
+			/* Select CH4 */
+			adc[0] = 0b00000111;
      258:	87 e0       	ldi	r24, 0x07	; 7
      25a:	80 93 00 14 	sts	0x1400, r24
 	#else
@@ -355,7 +355,7 @@ uint8_t adc_read(DeviceType device){
      26c:	00 c0       	rjmp	.+0      	; 0x26e <adc_read+0x44>
 		
 		default:
-		break;
+			break;
 	}
 	_delay_ms(70);
 	return adc[0];
@@ -682,7 +682,7 @@ void JOYSTICK_send_position(void)
      3b4:	9a 83       	std	Y+2, r25	; 0x02
      3b6:	89 83       	std	Y+1, r24	; 0x01
 	
-	printf("msg_type: %i\n", can_message.data[0]);
+	//printf("msg_type: %i\n", can_message.data[0]);
      3b8:	1f 92       	push	r1
      3ba:	2f 93       	push	r18
      3bc:	86 e0       	ldi	r24, 0x06	; 6
@@ -946,8 +946,8 @@ int main(void)
 	
 	while(1)
 	{	
-		//CAN_message_send(&can_message);
-		JOYSTICK_send_position();
+		JOYSTICK_send_position(); // Sends current position values over CAN
+		
      504:	0e 94 b9 01 	call	0x372	; 0x372 <JOYSTICK_send_position>
      508:	fd cf       	rjmp	.-6      	; 0x504 <__stack+0x5>
 
