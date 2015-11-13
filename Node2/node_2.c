@@ -16,6 +16,7 @@
 #include "servo.h"
 #include "usart_2.h"
 #include "can.h"
+#include "ir.h"
 
 
 int main(void)
@@ -26,11 +27,18 @@ int main(void)
 	fdevopen(USART_transmit, USART_receive); // Sets printf to serial port
 	USART_init(MYUBBR);
 	CAN_init();
+	IR_init();
 	
 	uint8_t status, msg_arrived;
 	can_message_t received_message;
 	
-	while(1) {	
+	uint8_t ir_res = IR_read();
+	printf("%d\n", ir_res);
+	
+	while(1) {
+		
+		ir_res = IR_read();
+		printf("%d\n", ir_res);
 		
 		status = MCP_read_status();
 		//printf("Status: %02x\n", status);

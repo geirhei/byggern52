@@ -108,10 +108,22 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="adc_2.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="adc_2.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="can.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="can.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ir.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ir.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mcp.c">

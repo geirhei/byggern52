@@ -37,7 +37,9 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../adc_2.c \
 ../can.c \
+../ir.c \
 ../mcp.c \
 ../node_2.c \
 ../servo.c \
@@ -52,7 +54,9 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+adc_2.o \
 can.o \
+ir.o \
 mcp.o \
 node_2.o \
 servo.o \
@@ -60,7 +64,9 @@ spi_2.o \
 usart_2.o
 
 OBJS_AS_ARGS +=  \
+adc_2.o \
 can.o \
+ir.o \
 mcp.o \
 node_2.o \
 servo.o \
@@ -68,7 +74,9 @@ spi_2.o \
 usart_2.o
 
 C_DEPS +=  \
+adc_2.d \
 can.d \
+ir.d \
 mcp.d \
 node_2.d \
 servo.d \
@@ -76,7 +84,9 @@ spi_2.d \
 usart_2.d
 
 C_DEPS_AS_ARGS +=  \
+adc_2.d \
 can.d \
+ir.d \
 mcp.d \
 node_2.d \
 servo.d \
@@ -97,6 +107,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 

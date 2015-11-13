@@ -14,27 +14,27 @@ uint8_t adc_read(DeviceType device){
 	volatile char *adc = (char *) 0x1400;
 	switch (device) {
 		case JOYAXIS1:
-		/* Select CH1 */
-		adc[0] = 0b00000100;
-		break;
+			/* Select CH1 */
+			adc[0] = 0b00000100;
+			break;
 		
 		case JOYAXIS2:
-		/* Select CH2 */
-		adc[0] = 0b00000101;
-		break;
+			/* Select CH2 */
+			adc[0] = 0b00000101;
+			break;
 		
 		case LSLIDER:
-		/* Select CH3 */
-		adc[0] = 0b00000110;
-		break;
+			/* Select CH3 */
+			adc[0] = 0b00000110;
+			break;
 		
 		case RSLIDER:
-		/* Select CH4 */
-		adc[0] = 0b00000111;
-		break;
+			/* Select CH4 */
+			adc[0] = 0b00000111;
+			break;
 		
 		default:
-		break;
+			break;
 	}
 	_delay_ms(70);
 	return adc[0];
