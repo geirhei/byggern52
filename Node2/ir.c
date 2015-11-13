@@ -21,23 +21,10 @@ void IR_init(void)
 	
 	// Turn on ADC
 	ADCSRA |= (1 << ADEN);
-
-	// Set channel ADC0
-	ADCSRB |= (1 << MUX5);
-	
-	// Do an initial conversion
-	ADCSRA |= (1 << ADSC);
-	
-	// Set ADC0 pin as input - necessary?
-	//DDRF &= ~(1 << PF0);
-	
 }
 
 uint8_t IR_read(void)
 {
-	// Set channel ADC0
-	ADCSRB |= (1 << MUX5);
-
 	ADCSRA |= (1 << ADSC); // Start conversion
 	
 	while (ADCSRA & (1 << ADSC)); // Wait until conversion is done
