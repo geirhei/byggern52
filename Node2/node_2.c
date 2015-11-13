@@ -17,6 +17,7 @@
 #include "usart_2.h"
 #include "can.h"
 #include "ir.h"
+#include "TWI_Master.h"
 
 
 int main(void)
@@ -28,6 +29,7 @@ int main(void)
 	USART_init(MYUBBR);
 	CAN_init();
 	IR_init();
+	TWI_Master_Initialise();
 	
 	uint8_t status, msg_arrived;
 	can_message_t received_message;

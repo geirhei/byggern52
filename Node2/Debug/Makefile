@@ -44,6 +44,7 @@ C_SRCS +=  \
 ../node_2.c \
 ../servo.c \
 ../spi_2.c \
+../TWI_Master.c \
 ../usart_2.c
 
 
@@ -61,6 +62,7 @@ mcp.o \
 node_2.o \
 servo.o \
 spi_2.o \
+TWI_Master.o \
 usart_2.o
 
 OBJS_AS_ARGS +=  \
@@ -71,6 +73,7 @@ mcp.o \
 node_2.o \
 servo.o \
 spi_2.o \
+TWI_Master.o \
 usart_2.o
 
 C_DEPS +=  \
@@ -81,6 +84,7 @@ mcp.d \
 node_2.d \
 servo.d \
 spi_2.d \
+TWI_Master.d \
 usart_2.d
 
 C_DEPS_AS_ARGS +=  \
@@ -91,6 +95,7 @@ mcp.d \
 node_2.d \
 servo.d \
 spi_2.d \
+TWI_Master.d \
 usart_2.d
 
 OUTPUT_FILE_PATH +=Node2.elf
@@ -107,6 +112,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

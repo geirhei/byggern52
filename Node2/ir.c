@@ -30,3 +30,12 @@ uint8_t IR_read(void)
 	while (ADCSRA & (1 << ADSC)); // Wait until conversion is done
 	return ADCH; // Return ADC value from high register
 }
+
+uint8_t count_score(void)
+{
+	static uint8_t score;
+	
+	
+	
+	return score;
+}
