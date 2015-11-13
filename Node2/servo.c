@@ -11,10 +11,10 @@
 
 void SERVO_init(void)
 {
-	timer1_init();
+	timer3_init();
 }
 
-void timer1_init(void)
+void timer3_init(void)
 {
 	// Set up timer in Fast PWM mode 14
 	TCCR3A |= (1 << COM1A1)|(1 << WGM11);
