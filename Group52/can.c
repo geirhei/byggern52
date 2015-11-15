@@ -17,6 +17,7 @@ void CAN_init(void)
 /* High level function for sending a message on the CAN bus */
 void CAN_message_send(can_message_t* msg)
 {
+	printf("CAN send entered");
 	
 	/* Only transmit buffer TXB0 is used */
 	
@@ -42,6 +43,7 @@ void CAN_message_send(can_message_t* msg)
 	
 	/* Request to send contents of TXB0 */
 	MCP_request_to_send(MCP_RTS_TX0);
+	printf("CAN send exit");
 }
 
 can_message_t CAN_message_receive(void)

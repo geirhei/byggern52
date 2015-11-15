@@ -33,12 +33,21 @@ int main(void)
 	
 	uint8_t status, msg_arrived;
 	can_message_t received_message;
-	uint8_t ir_test = IR_read();
+	//uint8_t ir_test = IR_read();
+	int16_t pos_test;
+	
+	uint8_t inv = byte_invert(0b01100000);
 	
 	while(1) {
 
-		ir_test = IR_read();
-		printf("%d\n", ir_test);
+		//ir_test = IR_read();
+		//printf("%d\n", inv);
+		
+		//MOTOR_dir_set(LEFT);
+		//MOTOR_speed_set(100);
+		
+		//pos_test = MOTOR_pos_read();
+		//printf("LSB position: %i\n", pos_test);
 
 		status = MCP_read_status();
 		//printf("Status: %02x\n", status);
