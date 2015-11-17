@@ -10,7 +10,7 @@
 #define CAN_H_
 
 #include "MCP2515.h"
-#include "mcp.h"
+#include "mcp_2.h"
 #include "servo.h"
 
 typedef struct {

@@ -9,6 +9,8 @@
 #define IR_H_
 
 #include <avr/io.h>
+#include <avr/delay.h>
+
 
 void IR_init(void);
 uint8_t IR_read(void);

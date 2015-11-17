@@ -5,8 +5,6 @@
  *  Author: geirhei
  */ 
 
-#include "mcp.h"
-#include "MCP2515.h"
 #include "can.h"
 
 void CAN_init(void)

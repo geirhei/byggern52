@@ -6,8 +6,6 @@
  */ 
 
 #include "usart_2.h"
-#include <util/delay.h>
-#include <avr/io.h>
 
 void USART_init(unsigned int ubrr)
 {

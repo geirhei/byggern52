@@ -25,6 +25,7 @@ enum uint8_t{
 	DOWN = 4
 };
 
+
 void MOTOR_init(void);
 void MOTOR_speed_set(uint8_t speed);
 void MOTOR_dir_set(uint8_t dir);

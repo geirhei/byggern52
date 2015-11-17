@@ -19,12 +19,11 @@
 #include "ir.h"
 #include "motor.h"
 
-
 int main(void)
 {
 	sei(); // Enable global interrupts
 	
-	SERVO_init(); // initialize timer
+	SERVO_init();
 	fdevopen(USART_transmit, USART_receive); // Sets printf to serial port
 	USART_init(MYUBBR);
 	CAN_init();
@@ -32,25 +31,13 @@ int main(void)
 	MOTOR_init();
 	
 	uint8_t status, msg_arrived;
-	can_message_t received_message;
-	//uint8_t ir_test = IR_read();
+	can_message_t received_message, new_msg;
+	uint8_t ir = IR_read();
 	int16_t pos_test;
-	
-	uint8_t inv = byte_invert(0b01100000);
 	
 	while(1) {
 
-		//ir_test = IR_read();
-		//printf("%d\n", inv);
-		
-		//MOTOR_dir_set(LEFT);
-		//MOTOR_speed_set(100);
-		
-		//pos_test = MOTOR_pos_read();
-		//printf("LSB position: %i\n", pos_test);
-
 		status = MCP_read_status();
-		//printf("Status: %02x\n", status);
 		msg_arrived = (status & 1);
 		if (msg_arrived) {
 			received_message = CAN_message_receive();
@@ -59,7 +46,31 @@ int main(void)
 			//printf("%s\n", "No message in buffer");
 		}
 		
-		//_delay_ms(100);
+		// MOTOR POSITION TEST
+		/*
+		MOTOR_dir_set(LEFT);
+		MOTOR_speed_set(100);
+		MOTOR_pos_read();
+		printf("Motor position: %d\n", pos_test);
+		*/
+		
+		// CAN SEND TEST
+		/*
+		new_msg.id = 5;
+		new_msg.length = 2;
+		new_msg.data[0] = 0;
+		new_msg.data[1] = 1;
+		CAN_message_send(&new_msg);
+		*/
+		
+		// IR TEST
+		/*
+		ir = IR_read();
+		//printf("IR: %d\n", ir);
+		if (ir < 20)
+			printf("Goal!\n");
+		*/
+		
 	}
 	
 	return 0;

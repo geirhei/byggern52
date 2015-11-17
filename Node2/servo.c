@@ -5,8 +5,6 @@
  *  Author: geirhei
  */ 
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
 #include "servo.h"
 
 void SERVO_init(void)
@@ -38,6 +36,7 @@ void timer3_init(void)
 	DDRE = (1 << PE3);
 }
 
+/* Sets the angle of the servo according to the input position struct, values 0-255 */
 void SERVO_write(position_t pos)
 {
 	const uint32_t min = 225;
@@ -47,14 +46,13 @@ void SERVO_write(position_t pos)
 	uint32_t ref = y * delta/255;
 	uint32_t new_pos = min + ref;
 	
-	// Update compare register
-	//printf("new_pos: %d\n", new_pos);
+	// Update the timer's compare register
 	OCR3A = new_pos;
 }
 
-/* Interrupt handler for TIMER1 compare */
-ISR(TIMER3_COMPA_vect) {
-
+/* Interrupt handler for TIMER1 compare. Generates the PWM signal */
+ISR(TIMER3_COMPA_vect)
+{
 	// pin toggle
 	PORTE ^= (1 << PE3);
 }

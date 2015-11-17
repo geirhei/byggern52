@@ -8,9 +8,7 @@
 	Port configuration for NODE 2
  */ 
 
-#include <avr/io.h>
-#include <avr/pgmspace.h>
-#include <avr/delay.h>
+#include "spi_2.h"
 
 void SPI_master_init(void)
 {

@@ -9,6 +9,9 @@
 #ifndef SERVO_H_
 #define SERVO_H_
 
+#include <avr/io.h>
+#include <avr/interrupt.h>
+
 typedef struct {
 	uint8_t x, y;
 } position_t;
