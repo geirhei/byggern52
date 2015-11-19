@@ -17,6 +17,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
+/* Enum for defining values corresponding to joystick directions */
 enum uint8_t{
 	NEUTRAL = 0,
 	LEFT = 1,
@@ -29,6 +30,7 @@ enum uint8_t{
 void MOTOR_init(void);
 void MOTOR_speed_set(uint8_t speed);
 void MOTOR_dir_set(uint8_t dir);
+void MOTOR_enable(uint8_t val);
 int16_t MOTOR_pos_read(void);
 
 #endif /* MOTOR_H_ */

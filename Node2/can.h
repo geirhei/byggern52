@@ -13,6 +13,7 @@
 #include "mcp_2.h"
 #include "servo.h"
 
+/* Custom type defining the structure of a CAN message */
 typedef struct {
 	unsigned int id;
 	uint8_t length;

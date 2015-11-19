@@ -3,6 +3,9 @@
  *
  * Created: 06.11.2015 09:50:46
  *  Author: geirhei
+ *
+ *
+ *	Used for testing of the SRAM component
  */ 
 
 

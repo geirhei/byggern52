@@ -6,9 +6,7 @@
  */ 
 
 #define F_CPU 4915200
-#include <avr/io.h>
-#include <util/delay.h>
-#include <stdio.h>
+
 #include "math.h"
 #include "joystick.h"
 #include "adc.h"
@@ -39,7 +37,7 @@ position_t JOYSTICK_get_position(void)
 
 Direction JOYSTICK_get_direction(position_t pos)
 {
-	const uint8_t THRESHOLD = 64;
+	const uint8_t THRESHOLD = 64; // Determines the value where the joystick changes direction
 	
 	if (pos.y < 127+THRESHOLD && pos.y > 127-THRESHOLD) {
 		if (pos.x < 127-THRESHOLD) {
@@ -56,13 +54,6 @@ Direction JOYSTICK_get_direction(position_t pos)
 		}
 	}
 	return NEUTRAL;
-}
-
-int16_t toPositionPercent(int16_t value)
-{
-	value -= 127;
-	int16_t percentValue = round((float)value / 127 * 100);
-	return percentValue;
 }
 
 position_t SLIDERS_get_positions(void)
@@ -100,6 +91,5 @@ void JOYSTICK_send_position()
 	can_message.length = 6;
 	can_message.id = 1;
 	
-	//printf("msg_type: %i\n", can_message.data[0]);
 	CAN_message_send(&can_message);
 }

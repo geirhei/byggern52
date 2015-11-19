@@ -6,8 +6,7 @@
  */ 
 
 #define F_CPU 4915200
-#include <avr/io.h>
-#include <util/delay.h>
+
 #include "adc.h"
 
 uint8_t ADC_read(DeviceType device){

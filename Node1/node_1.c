@@ -3,6 +3,8 @@
  *
  * Created: 28.08.2015 10:15:40
  *  Author: geirhei
+ *
+ *	Main function for Node 1
  */ 
 
 #define F_CPU 4915200
@@ -29,15 +31,13 @@ int main(void)
 	JOYSTICK_init();
 	CAN_init();
 	
-	OLED_pos(2,20);
-	
 	menuNode *menu = OLED_generate_menu();
 	OLED_print_menu(menu);
 	
 	uint8_t currentRow = 1;
 	uint8_t lastRow = 0;
 	uint8_t buttonPressed = 0;
-	uint8_t lslider, rslider, spi_data, spi_rec;
+	uint8_t lslider, rslider, spi_data, spi_rec; // Variables used for testing
 	Direction joydir = NEUTRAL;
 	can_message_t received;
 	
@@ -45,6 +45,9 @@ int main(void)
 	{	
 		JOYSTICK_send_position(); // Sends current position values over CAN
 		
+		/**********************************************************************************
+		 Updates OLED display and position arrow according to current joystick position 
+		 ***********************************************************************************/
 		position_t position = JOYSTICK_get_position();
 		joydir = JOYSTICK_get_direction(position);
 		
@@ -70,8 +73,7 @@ int main(void)
 		if (buttonPressed) {
 			menu = menu->children[currentRow];
 		}
-		
-		//_delay_ms(50);
+		/***********************************************************************************/
 		
 		// SLIDER TEST
 		/*

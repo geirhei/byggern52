@@ -10,6 +10,8 @@
 #define JOYSTICK_H_
 
 #include <avr/io.h>
+#include <util/delay.h>
+#include <stdio.h>
 
 typedef enum {
 	NEUTRAL = 0,
@@ -28,7 +30,6 @@ void JOYSTICK_calibrate(void);
 position_t JOYSTICK_get_position(void);
 Direction JOYSTICK_get_direction(position_t pos);
 position_t SLIDERS_get_positions(void);
-int16_t toPositionPercent(int16_t value);
 uint8_t JOYSTICK_read_button(void);
 void JOYSTICK_send_position();
 

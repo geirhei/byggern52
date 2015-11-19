@@ -27,7 +27,7 @@ void timer3_init(void)
 	TCNT3 = 0;
 	
 	// initialize compare value (servo to middle, 0x0177)
-	OCR3A = 0x0177; //middle
+	OCR3A = 0x0177;
 	
 	// Enable compare interrupt
 	TIMSK3 |= (1 << OCIE1A);

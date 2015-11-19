@@ -40,9 +40,10 @@ void OLED_init(void)
 	}
 	
 	OLED_reset();
+	OLED_pos(2,20);
 }
 
-
+/* Could replace the joystick code in node_1.c */
 void OLED_update(menuNode *menu, position_t joypos)
 {
 	uint8_t currentRow = 1;
@@ -196,14 +197,6 @@ menuNode *OLED_generate_menu(void)
 	menuNode *debugging = OLED_create_node("Debugging", mainmenu);
 	menuNode *calibrate = OLED_create_node("Calibrate", mainmenu);
 	menuNode *difficulty = OLED_create_node("Difficulty", mainmenu);
-
-	/*
-	highscores->parent = mainmenu;
-	playgame->parent = mainmenu;
-	calibrate->parent = mainmenu;
-	difficulty->parent = mainmenu;
-	debugging->parent = mainmenu;
-	*/
 	
 	mainmenu->children[1] = playgame;
 	mainmenu->children[2] = highscores;

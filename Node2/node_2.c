@@ -3,6 +3,8 @@
  *
  * Created: 06.11.2015 09:17:29
  *  Author: geirhei
+ *
+ *	Main function for Node 2
  */ 
 
 #define F_CPU 16000000
@@ -31,9 +33,8 @@ int main(void)
 	MOTOR_init();
 	
 	uint8_t status, msg_arrived;
-	can_message_t received_message, new_msg;
-	uint8_t ir = IR_read();
-	int16_t pos_test;
+	can_message_t received_message;
+	uint8_t ir = IR_read(); // Can be printed to verify that the IR functionality works
 	
 	while(1) {
 
@@ -45,32 +46,6 @@ int main(void)
 		} else {
 			//printf("%s\n", "No message in buffer");
 		}
-		
-		// MOTOR POSITION TEST
-		/*
-		MOTOR_dir_set(LEFT);
-		MOTOR_speed_set(100);
-		MOTOR_pos_read();
-		printf("Motor position: %d\n", pos_test);
-		*/
-		
-		// CAN SEND TEST
-		/*
-		new_msg.id = 5;
-		new_msg.length = 2;
-		new_msg.data[0] = 0;
-		new_msg.data[1] = 1;
-		CAN_message_send(&new_msg);
-		*/
-		
-		// IR TEST
-		/*
-		ir = IR_read();
-		//printf("IR: %d\n", ir);
-		if (ir < 20)
-			printf("Goal!\n");
-		*/
-		
 	}
 	
 	return 0;
